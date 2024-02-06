@@ -1,0 +1,29 @@
+﻿<Window x:Class="Gosuslugi.Registration"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Gosuslugi"
+        mc:Ignorable="d"
+        Title="Registration" Height="450" MinHeight="255" Width="300" MinWidth="180">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="TbEmail" TextWrapping="Wrap" Text="Email" Width="auto" MaxWidth="350" Height="20" Grid.Row="0" />
+        <TextBox x:Name="TbPhone" TextWrapping="Wrap" Text="Phone" Width="auto" MaxWidth="350" Height="20" Grid.Row="1"/>
+        <TextBox x:Name="TbLogin" TextWrapping="Wrap" Text="Login" Width="auto" MaxWidth="350" Height="20" Grid.Row="2"/>
+        <PasswordBox x:Name="TbPass" Width="auto" MaxWidth="350" Height="20" Grid.Row="3"/>
+        <Button x:Name="RegistrBt" Content="Зарегистрироваться" Width="auto" MaxWidth="350" Click="RegistrBt_Click" Height="20" Grid.Row="4"/>
+        <Button x:Name="BtToLogin" Content="login" Width="50" Height="20" Grid.Row="5" HorizontalAlignment="Center" Click="BtToLogin_Click"/>
+    </Grid>
+</Window>

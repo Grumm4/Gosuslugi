@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Gosuslugi.OrderCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Gosuslugi"
+             mc:Ignorable="d" 
+              MinHeight="150" MinWidth="400" BorderThickness="0.5" BorderBrush="Black">
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="LabelTitle" Grid.Row="0" Height="auto" Width="auto" Content="{Binding Title}"/>
+        <Label x:Name="LabelPrice" Grid.Row="1" Height="auto" Width="auto" Content="{Binding Price}"/>
+        <Label x:Name="LabelDate" Grid.Row="2" Height="auto" Width="auto" Content="{Binding Date}"/>
+        <Label x:Name="LabelPlace" Grid.Row="3" Height="auto" Width="auto" Content="{Binding Place}"/>
+        <Label x:Name="LabelContacts" Grid.Row="4" Height="auto" Width="auto" Content="{Binding Contacts}"/>
+        <Label x:Name="LabelComments" Grid.Row="5" Height="auto" Width="auto" Content="{Binding Comments}"/>
+    </Grid>
+</UserControl>

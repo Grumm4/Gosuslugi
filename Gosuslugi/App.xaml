@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Gosuslugi"
-             StartupUri="Login.xaml"><!--Registration-->
+             StartupUri="OrderWindow.xaml">
+    <!--Registration Login CreateOrderWindow OrderWindow-->
     <Application.Resources>
          
     </Application.Resources>

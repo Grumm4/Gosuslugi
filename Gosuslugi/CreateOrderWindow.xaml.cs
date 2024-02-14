@@ -31,6 +31,7 @@ namespace Gosuslugi
                 context.Orders.Add(new OrderModel
                 {
                     Title = TitleTb.Text,
+                    Price = Convert.ToDecimal(PriceTb.Text),
                     Date = DateDp.Text,
                     Place = PlaceTb.Text,
                     Contacts = ContactsTb.Text,

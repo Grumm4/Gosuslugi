@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gosuslugi"
         mc:Ignorable="d"
-        Title="OrderWindow" Height="450" Width="800">
-
+        Title="OrderWindow" Height="450" MinWidth="450" Width="800" WindowStartupLocation="CenterScreen" x:Name="MainWindow">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="32"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <Label x:Name="LabelCountOrders" Grid.Row="1" HorizontalAlignment="Left" Width="200" Height="auto" Loaded="LabelCountOrders_Loaded"/>
         <DataGrid x:Name="DGOrders" Grid.Row="2" AutoGenerateColumns="False" VerticalContentAlignment="Center" Background="Transparent"
           GridLinesVisibility="None" BorderThickness="0" CanUserResizeColumns="False" CanUserReorderColumns="False" 
@@ -25,21 +27,41 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn >
+                <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate >
                         <DataTemplate>
                             <StackPanel>
-                                <Button x:Name="DeleteOrderBt"  Content="Удалить заказ" Click="DeleteOrderBt_Click" CommandParameter="{Binding Id}"/>
+                                <Button Content="Удалить заказ" Click="DeleteOrderBt_Click" CommandParameter="{Binding Id}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Button x:Name="AcceptOrderBt"  Content="Принять заказ" Click="AcceptOrderBt_Click"  CommandParameter="{Binding Id}"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Menu Grid.Row="0">
-            <MenuItem x:Name="CreateOrderMenu" Height="30" MinWidth="50" Width="auto" BorderBrush="Black" Header="Создать заказ" FontSize="14" Click="CreateOrderMenu_Click"/>
-            <Separator Width="1"/>
-            <MenuItem Height="30" MinWidth="100" Header="Создать заказ" BorderBrush="Black"/>
+        <Menu x:Name="MenuTopPanel" Grid.Row="0" Height="32" Width="790">
+            <Menu.Resources>
+                <Style TargetType="MenuItem">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </Menu.Resources>
+            <DockPanel Width="790">
+                <Button x:Name="LogoutMenu" Height="30" MinWidth="50"  BorderBrush="Black" Content="Выйти" FontSize="14" Click="LogoutMenu_Click"/>
+                <Separator Width="1"/>
+                <Button x:Name="CreateOrderMenu" Height="30" MinWidth="50"  BorderBrush="Black" Content="Создать заказ" FontSize="14" Click="CreateOrderMenu_Click"/>
+                <Separator Width="1"/>
+                <Button x:Name="ToPersonalArea" Height="30" MinWidth="50" BorderBrush="Black" Content="Личный кабинет" FontSize="14" Click="ToPersonalArea_Click" HorizontalAlignment="Left"/>
+                
+            </DockPanel>
         </Menu>
     </Grid>
 </Window>

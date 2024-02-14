@@ -26,6 +26,16 @@ namespace Gosuslugi
 
         private void LabelCountOrders_Loaded(object sender, RoutedEventArgs e)
         {
+            
+            if (Login.currentUser.Role == "Admin") 
+            {
+                DGOrders.Columns[2].Visibility = Visibility.Collapsed; // Скрытие кнопки "принять заказ"
+            }
+            else
+            {
+                CreateOrderMenu.Visibility = Visibility.Collapsed; // Скрытие кнопки "создать заказ"
+                DGOrders.Columns[1].Visibility = Visibility.Collapsed; // Скрытие кнопки "удалить заказ"
+            }
             ShowOrders();
         }
 
@@ -79,6 +89,24 @@ namespace Gosuslugi
                 context.SaveChanges();
                 ShowOrders();
             }
+        }
+
+        private void LogoutMenu_Click(object sender, RoutedEventArgs e)
+        {
+            Login.currentUser = new UserModel();
+            Login l = new Login();
+            l.Show();
+            Close();
+        }
+
+        private void AcceptOrderBt_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ToPersonalArea_Click(object sender, RoutedEventArgs e)
+        {
+            new PersonalArea().ShowDialog();
         }
     }
 }

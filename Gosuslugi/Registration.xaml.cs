@@ -22,14 +22,10 @@ namespace Gosuslugi
     /// </summary>
     public partial class Registration : Window
     {
-        //public DbContextOptionsBuilder<ApplicationContext> context;
-
         public Registration()
         {
             InitializeComponent();
         }
-
-        //public Registration(DbContextOptionsBuilder<ApplicationContext> context) => this.context = context;
 
         private void RegistrBt_Click(object sender, RoutedEventArgs e)
         {
@@ -43,11 +39,22 @@ namespace Gosuslugi
                 Email = TbEmail.Text,
                 PhoneNumber = TbPhone.Text,
                 Login = TbLogin.Text,
-                HashedPwd = HashPwd(TbPass.Password)
+                HashedPwd = HashPwd(TbPass.Password),
+                Role = "User"
             };
 
             using (var context = new ApplicationContext())
             {
+                if ((context.Users.FirstOrDefault(u => u.Email == TbEmail.Text)) != null)
+                {
+                    MessageBox.Show("Пользователь с такой почтой уже существует!");
+                    return;
+                }
+                if ((context.Users.FirstOrDefault(u => u.Login == TbLogin.Text)) != null)
+                {
+                    MessageBox.Show("Пользователь с таким логином уже существует!");
+                    return;
+                }
                 context.Users.Add(u);
                 context.SaveChanges();
             }
@@ -77,6 +84,50 @@ namespace Gosuslugi
             var l = new Login();
             l.Show();
             this.Close();
+        }
+
+        public void IterateTextBoxes(DependencyObject parent)
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+
+                if (child is TextBox textBox)
+                {
+                    if (textBox.Tag != null)
+                    {
+                        textBox.Text = textBox.Tag.ToString();
+                    }
+
+                }
+
+                IterateTextBoxes(child);
+            }
+        }
+
+        void RemoveText(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = (sender as TextBox);
+
+            if (tb.Text == tb.Tag.ToString())
+            {
+                tb.Text = "";
+            }
+        }
+
+        void AddText(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = (sender as TextBox);
+
+            if (string.IsNullOrEmpty(tb.Text))
+            {
+                tb.Text = tb.Tag.ToString();
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            IterateTextBoxes(this);
         }
     }
 }

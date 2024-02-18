@@ -36,6 +36,7 @@ namespace Gosuslugi
                     Place = PlaceTb.Text,
                     Contacts = ContactsTb.Text,
                     Comments = CommentsTb.Text,
+                    AcceptedUserId = 0
                 });
                 context.SaveChanges();
             }

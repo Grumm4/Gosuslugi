@@ -26,7 +26,6 @@ namespace Gosuslugi
 
         private void LabelCountOrders_Loaded(object sender, RoutedEventArgs e)
         {
-            
             if (Login.currentUser.Role == "Admin") 
             {
                 DGOrders.Columns[2].Visibility = Visibility.Collapsed; // Скрытие кнопки "принять заказ"
@@ -54,11 +53,17 @@ namespace Gosuslugi
 
             using (var context = new ApplicationContext())
             {
-                var all = context.Orders.ToList();
+                List<OrderModel> orders = new List<OrderModel>();
+
+                if (Login.currentUser.Role != "Admin")
+                    orders = context.Orders.Where(o => o.AcceptedUserId == 0).ToList();
+                else
+                    orders = context.Orders.ToList();
+
+                //INSERT INTO my_table (id, numbers) VALUES (1, '[1, 2, 3, 4, 5]'); JSON!!!!!!!!!!!!!!!!
 
 
-
-                foreach (var order in all)
+                foreach (var order in orders)
                 {
                     var orderCard = new OrderModel
                     {
@@ -75,14 +80,14 @@ namespace Gosuslugi
                     orderCards.Add(orderCard);
                 };
 
-                LabelCountOrders.Content = "Колличество активных заказов: " + all.Count.ToString();
+                LabelCountOrders.Content = "Колличество активных заказов: " + orders.Count.ToString();
                 DGOrders.ItemsSource = orderCards;
             }
         }
 
         private void DeleteOrderBt_Click(object sender, RoutedEventArgs e)
         {
-            int id = (int)((Button)sender).CommandParameter;
+            int id = (int)((Button)sender).CommandParameter; // получение Id заказа при клике по кнопке рядом с ним
             using (var context = new ApplicationContext())
             {
                 context.Orders.Remove(context.Orders.FirstOrDefault(o => o.Id == id));
@@ -101,12 +106,25 @@ namespace Gosuslugi
 
         private void AcceptOrderBt_Click(object sender, RoutedEventArgs e)
         {
-
+            int id = (int)((Button)sender).CommandParameter; // получение Id заказа при клике по кнопке рядом с ним
+            using (var context = new ApplicationContext())
+            {
+                var order = context.Orders.FirstOrDefault(o => o.Id==id);
+                order.AcceptedUserId = Login.currentUser.Id;
+                context.SaveChanges();
+                MessageBox.Show("Заказ принят и перемещён в личный кабинет");
+                ShowOrders();
+            }
         }
 
         private void ToPersonalArea_Click(object sender, RoutedEventArgs e)
         {
-            new PersonalArea().ShowDialog();
+            bool? result = new PersonalArea().ShowDialog();
+            if (result == true)
+            {
+                ShowOrders();
+            }
+
         }
     }
 }

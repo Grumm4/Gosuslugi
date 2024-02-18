@@ -35,6 +35,7 @@ namespace Gosuslugi
                     {
                         Id = user.Id,
                         Email = user.Email,
+                        Name = user.Name,
                         HashedPwd = user.HashedPwd,
                         Login = user.Login,
                         PhoneNumber = user.PhoneNumber,

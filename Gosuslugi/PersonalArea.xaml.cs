@@ -19,7 +19,7 @@ namespace Gosuslugi
     /// </summary>
     public partial class PersonalArea : Window
     {
-        TextBox tb = null;
+        TextBox tb = new TextBox();
         List<Button> buttonList = new List<Button>() { };
         public PersonalArea()
         {
@@ -34,11 +34,12 @@ namespace Gosuslugi
             MailTb.Text = Login.currentUser.Email;
 
             buttonList.Add(ChangeLoginBt); buttonList.Add(ChangePhoneBt); buttonList.Add(ChangeNameBt); buttonList.Add(ChangeMailBt);
+
+            ShowOrders();
         }
 
         void ChangePersonalData(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("ChangePersonalData");
             Button? bt = sender as Button;
             foreach (Button button in buttonList)
             {
@@ -52,32 +53,43 @@ namespace Gosuslugi
                 button.IsEnabled = false;
             }
 
-            
-
             bt.Content = "Сохранить";
-            //IterateTextBoxes(this, bt.Tag);
+
             bt.Click -= ChangePersonalData;
             bt.Click += SavePersonalData;
         }
 
         void SavePersonalData(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("SavePersonalData");
             Button? bt = sender as Button;
             bt.Content = "Изменить";
-            
-            //сохранение в бд
+
             foreach (Button button in buttonList)
             {
                 if (button.IsEnabled == false)
                 {
-                    //TextBox tb = IterateTextBoxes(this, button.Tag);
                     tb.IsEnabled = false;
                     button.IsEnabled = true;
                 }
             }
             bt.Click -= SavePersonalData;
             bt.Click += ChangePersonalData;
+
+            //сохранение в бд
+            using (var context = new ApplicationContext())
+            {
+                var user = context.Users.FirstOrDefault(u => u.Id == Login.currentUser.Id);
+
+                if (user != null)
+                {
+                    user.Login = LoginTb.Text;
+                    user.Name = NameTb.Text;
+                    user.PhoneNumber = PhoneTb.Text;
+                    user.Email = MailTb.Text;
+
+                    context.SaveChanges();
+                }
+            }
         }
 
         public void IterateTextBoxes(DependencyObject parent, object tag)
@@ -101,5 +113,56 @@ namespace Gosuslugi
                 IterateTextBoxes(child, tag);
             }
         }
+
+        void ShowOrders()
+        {
+            List<OrderModel> orderCards = new List<OrderModel>();
+
+            using (var context = new ApplicationContext())
+            {
+                var all = context.Orders.Where(o => o.AcceptedUserId == Login.currentUser.Id).ToList();
+
+                //INSERT INTO my_table (id, numbers) VALUES (1, '[1, 2, 3, 4, 5]'); JSON!!!!!!!!!!!!!!!!
+
+
+                foreach (var order in all)
+                {
+                    var orderCard = new OrderModel
+                    {
+                        Id = order.Id,
+                        Title = order.Title,
+                        Price = order.Price,
+                        Date = order.Date,
+                        Place = order.Place,
+                        Contacts = order.Contacts,
+                        Comments = order.Comments
+                    };
+
+
+                    orderCards.Add(orderCard);
+                };
+
+                LabelCountOrders.Content = "Колличество активных заказов: " + all.Count.ToString();
+                DGOrders.ItemsSource = orderCards;
+            }
+        }
+
+        private void RejectOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Вы действительно хотите отказаться от заказа?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                int id = (int)((Button)sender).CommandParameter; // получение id 
+
+                using (var context = new ApplicationContext())
+                {
+                    OrderModel? order = context.Orders.FirstOrDefault(o => o.Id == id);
+                    order.AcceptedUserId = 0;
+                    context.SaveChanges();
+                    ShowOrders();
+                }
+            }
+        }
+
+        private void ClosePersonalAreaBt_Click(object sender, RoutedEventArgs e) => DialogResult = true;
     }
 }

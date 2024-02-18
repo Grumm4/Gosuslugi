@@ -16,7 +16,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="LabelCountOrders" Grid.Row="1" HorizontalAlignment="Left" Width="200" Height="auto" Loaded="LabelCountOrders_Loaded"/>
-        <DataGrid x:Name="DGOrders" Grid.Row="2" AutoGenerateColumns="False" VerticalContentAlignment="Center" Background="Transparent"
+        <DataGrid x:Name="DGOrders" Grid.Row="2" AutoGenerateColumns="False" VerticalContentAlignment="Center" Background="Transparent" RowBackground="Transparent"
           GridLinesVisibility="None" BorderThickness="0" CanUserResizeColumns="False" CanUserReorderColumns="False" 
           HeadersVisibility="None" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" FontSize="15">
             <DataGrid.Columns>
@@ -47,19 +47,13 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Menu x:Name="MenuTopPanel" Grid.Row="0" Height="32" Width="790">
-            <Menu.Resources>
-                <Style TargetType="MenuItem">
-                    <Setter Property="Padding" Value="0"/>
-                    <Setter Property="Margin" Value="0"/>
-                </Style>
-            </Menu.Resources>
-            <DockPanel Width="790">
+        <Menu x:Name="MenuTopPanel" Grid.Row="0" Height="32" Width="790" Style="{StaticResource MenuStyle}">
+            <DockPanel Width="790" Focusable="False" >
                 <Button x:Name="LogoutMenu" Height="30" MinWidth="50"  BorderBrush="Black" Content="Выйти" FontSize="14" Click="LogoutMenu_Click"/>
                 <Separator Width="1"/>
                 <Button x:Name="CreateOrderMenu" Height="30" MinWidth="50"  BorderBrush="Black" Content="Создать заказ" FontSize="14" Click="CreateOrderMenu_Click"/>
                 <Separator Width="1"/>
-                <Button x:Name="ToPersonalArea" Height="30" MinWidth="50" BorderBrush="Black" Content="Личный кабинет" FontSize="14" Click="ToPersonalArea_Click" HorizontalAlignment="Left"/>
+                <Button  x:Name="ToPersonalArea" Height="30" MinWidth="50" BorderBrush="Black" Content="Личный кабинет" FontSize="14" Click="ToPersonalArea_Click" HorizontalAlignment="Left"/>
                 
             </DockPanel>
         </Menu>

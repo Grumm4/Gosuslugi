@@ -9,5 +9,6 @@
         public string? Place { get; set; }
         public string? Contacts { get; set; }
         public string? Comments { get; set;}
+        public int? AcceptedUserId { get; set; }
     }
 }

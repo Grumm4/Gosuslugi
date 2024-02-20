@@ -18,7 +18,7 @@
         <Label x:Name="LabelCountOrders" Grid.Row="1" HorizontalAlignment="Left" Width="200" Height="auto" Loaded="LabelCountOrders_Loaded"/>
         <DataGrid x:Name="DGOrders" Grid.Row="2" AutoGenerateColumns="False" VerticalContentAlignment="Center" Background="Transparent" RowBackground="Transparent"
           GridLinesVisibility="None" BorderThickness="0" CanUserResizeColumns="False" CanUserReorderColumns="False" 
-          HeadersVisibility="None" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" FontSize="15">
+          HeadersVisibility="None" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" FontSize="15" ScrollViewer.CanContentScroll="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
@@ -47,12 +47,12 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Menu x:Name="MenuTopPanel" Grid.Row="0" Height="32" Width="790" Style="{StaticResource MenuStyle}">
-            <DockPanel Width="790" Focusable="False" >
+        <Menu x:Name="MenuTopPanel" Grid.Row="0" Height="32" Width="auto" Background="Transparent">
+            <DockPanel Width="auto" Focusable="False" Margin="-5, 0, 0,0">
                 <Button x:Name="LogoutMenu" Height="30" MinWidth="50"  BorderBrush="Black" Content="Выйти" FontSize="14" Click="LogoutMenu_Click"/>
-                <Separator Width="1"/>
+                <Separator Width="1" Background="Transparent"/>
                 <Button x:Name="CreateOrderMenu" Height="30" MinWidth="50"  BorderBrush="Black" Content="Создать заказ" FontSize="14" Click="CreateOrderMenu_Click"/>
-                <Separator Width="1"/>
+                <Separator Width="1" Background="Transparent"/>
                 <Button  x:Name="ToPersonalArea" Height="30" MinWidth="50" BorderBrush="Black" Content="Личный кабинет" FontSize="14" Click="ToPersonalArea_Click" HorizontalAlignment="Left"/>
                 
             </DockPanel>

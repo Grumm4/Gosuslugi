@@ -50,24 +50,27 @@
         <Label x:Name="LabelCountOrders" Grid.Row="1" HorizontalAlignment="Left" Width="200" Height="auto"/>
         <DataGrid Grid.Row="2" x:Name="DGOrders" AutoGenerateColumns="False" VerticalContentAlignment="Center" Background="Transparent"
                   GridLinesVisibility="None" BorderThickness="0" CanUserResizeColumns="False" CanUserReorderColumns="False" 
-                  HeadersVisibility="None" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" FontSize="15">
+                  HeadersVisibility="None" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" 
+                  FontSize="15" ScrollViewer.CanContentScroll="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <local:OrderCard BorderThickness="1"/>
+                            <local:OrderCard BorderThickness="1" Margin="2"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="RejectOrder" Content="Отказаться от заказа" Click="RejectOrder_Click" CommandParameter="{Binding Id}"/>
+                            <StackPanel>
+                                <Button x:Name="RejectOrder" Content="Отказаться от заказа" Click="RejectOrder_Click" CommandParameter="{Binding Id}" Margin="2"/>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
-                
+
+
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

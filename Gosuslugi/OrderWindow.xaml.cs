@@ -122,7 +122,7 @@ namespace Gosuslugi
             bool? result = new PersonalArea().ShowDialog();
             if (result == true)
             {
-                ShowOrders();
+                this.ShowOrders();
             }
 
         }

@@ -36,6 +36,12 @@ namespace Gosuslugi
             buttonList.Add(ChangeLoginBt); buttonList.Add(ChangePhoneBt); buttonList.Add(ChangeNameBt); buttonList.Add(ChangeMailBt);
 
             ShowOrders();
+
+            if (Login.currentUser.Role == "Admin")
+            {
+                DGOrders.Visibility = Visibility.Collapsed;
+                LabelCountOrders.Visibility = Visibility.Collapsed;
+            }
         }
 
         void ChangePersonalData(object sender, RoutedEventArgs e)

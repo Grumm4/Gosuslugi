@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gosuslugi"
         mc:Ignorable="d"
-        Title="Форма создания заказа" Height="450" MinHeight="350" Width="600" MinWidth="220" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="Форма создания заказа" Height="450" MinHeight="350" Width="600" MinWidth="220" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Closing="Window_Closing">
 
     <Window.Resources>
         <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
@@ -53,7 +53,7 @@
         <DatePicker x:Name="DateDp" Grid.Row="2" Width="auto" MaxWidth="350" Height="28"  BorderBrush="Black" BorderThickness="1"/>
         <TextBox x:Name="PlaceTb" Grid.Row="3" Width="auto" MaxWidth="350" Height="28"  BorderBrush="Black" BorderThickness="1" Tag="Место выполнения заказа" VerticalAlignment="Center" GotFocus="RemoveText" LostFocus="AddText"/>
         <TextBox x:Name="ContactsTb" Grid.Row="4" Width="auto" MaxWidth="350" Height="28"  BorderBrush="Black" BorderThickness="1" Tag="Контактная информация" GotFocus="RemoveText" LostFocus="AddText"/>
-        <TextBox x:Name="CommentsTb" Grid.Row="5" Width="auto" MaxWidth="350" Height="100"  BorderBrush="Black" BorderThickness="1" Tag="Комментарии к заказу" GotFocus="RemoveText" LostFocus="AddText"/>
+        <TextBox x:Name="CommentsTb" Grid.Row="5" Width="auto" MaxWidth="350" Height="100"  BorderBrush="Black" BorderThickness="1" Tag="Комментарии к заказу" GotFocus="RemoveText" LostFocus="AddText" TextWrapping="Wrap" Text=""/>
         <Button x:Name="CreateOrderBt" Grid.Row="6" Width="auto" MaxWidth="350"  Height="28" BorderBrush="Black" BorderThickness="1" Content="Создать заказ" Click="CreateOrderBt_Click"/>
     </Grid>
     

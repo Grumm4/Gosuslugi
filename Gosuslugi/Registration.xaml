@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gosuslugi"
         mc:Ignorable="d"
-        Title="Registration" Height="450" MinHeight="255" Width="300" MinWidth="180" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="Registration" Height="450" MinHeight="265" Width="800" MinWidth="220" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -17,13 +17,13 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBox x:Name="TbEmail" TextWrapping="Wrap" Tag="Почта" GotFocus="RemoveText" LostFocus="AddText" Width="auto" MaxWidth="350" Height="20" Grid.Row="0" />
         <TextBox x:Name="TbPhone" TextWrapping="Wrap" Tag="Телефон" GotFocus="RemoveText" LostFocus="AddText" Width="auto" MaxWidth="350" Height="20" Grid.Row="1"/>
         <TextBox x:Name="TbLogin" TextWrapping="Wrap" Tag="Логин" GotFocus="RemoveText" LostFocus="AddText" Width="auto" MaxWidth="350" Height="20" Grid.Row="2"/>
-        <PasswordBox x:Name="TbPass" Width="auto" MaxWidth="350" Height="20" Grid.Row="3"/>
-        <Button x:Name="RegistrBt" Content="Зарегистрироваться" Width="auto" MaxWidth="350" Click="RegistrBt_Click" Height="20" Grid.Row="4"/>
-        <Button x:Name="BtToLogin" Content="login" Width="50" Height="20" Grid.Row="5" HorizontalAlignment="Center" Click="BtToLogin_Click"/>
+        <PasswordBox x:Name="TbPass" Width="auto" MaxWidth="350" Height="20" Grid.Row="3" ToolTip="Пароль"/>
+        <Button x:Name="RegistrBt" Content="Зарегистрироваться" Width="auto" MaxWidth="350" Click="RegistrBt_Click" Height="25" Grid.Row="4" FontSize="16" />
+        <Button x:Name="BtToLogin" Content="Вход" Width="50" Height="25" Grid.Row="5" HorizontalAlignment="Center" Click="BtToLogin_Click" FontSize="16"/>
     </Grid>
 </Window>

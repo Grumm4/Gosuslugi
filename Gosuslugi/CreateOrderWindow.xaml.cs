@@ -40,13 +40,14 @@ namespace Gosuslugi
                 });
                 context.SaveChanges();
             }
+            AfterClosingAnimation.Animate(this, null);
             DialogResult = true;
-            Close();
         }
 
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            AfterClosingAnimation.Animate(null, this);
             IterateTextBoxes(this);
         }
 
@@ -87,6 +88,11 @@ namespace Gosuslugi
             {
                 tb.Text = tb.Tag.ToString();
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            AfterClosingAnimation.Animate(this, null);
         }
     }
 }

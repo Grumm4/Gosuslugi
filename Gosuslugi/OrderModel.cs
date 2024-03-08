@@ -1,4 +1,6 @@
-﻿namespace Gosuslugi
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Gosuslugi
 {
     public class OrderModel
     {
@@ -10,5 +12,8 @@
         public string? Contacts { get; set; }
         public string? Comments { get; set;}
         public int? AcceptedUserId { get; set; }
+        
+        [NotMapped]
+        public string? ExecutorName { get; set; }
     }
 }

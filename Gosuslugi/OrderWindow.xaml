@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gosuslugi"
         mc:Ignorable="d"
-        Title="OrderWindow" Height="450" MinWidth="450" Width="800" WindowStartupLocation="CenterScreen" x:Name="MainWindow">
+        Title="OrderWindow" Height="450" Width="1450"  WindowStartupLocation="CenterScreen" x:Name="MainWindow">
+    <Window.Resources>
+        <local:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
@@ -16,16 +19,43 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="LabelCountOrders" Grid.Row="1" HorizontalAlignment="Left" Width="200" Height="auto" Loaded="LabelCountOrders_Loaded"/>
-        <DataGrid x:Name="DGOrders" Grid.Row="2" AutoGenerateColumns="False" VerticalContentAlignment="Center" Background="Transparent" RowBackground="Transparent"
+
+        <ScrollViewer Grid.Row="2">
+            <ItemsControl x:Name="ICOrders" ItemsSource="{Binding orderModels}"  >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel x:Name="StackPan" Orientation="Horizontal" Margin="5">
+                            <local:OrderCard BorderThickness="1" MouseDoubleClick="OrderCard_MouseDoubleClick" Margin="3"/>
+                            <Button Content="Удалить заказ" Click="DeleteOrderBt_Click" CommandParameter="{Binding Id}" Loaded="DeleteBt_Loaded" Margin="3"/>
+                            <Button Content="Принять заказ" Click="AcceptOrderBt_Click" CommandParameter="{Binding Id}" Loaded="AcceptBt_Loaded" Margin="3"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+        
+        
+
+        <!--<DataGrid x:Name="DGOrders" Grid.Row="2" AutoGenerateColumns="False" VerticalContentAlignment="Center" Background="Transparent" RowBackground="Transparent"
           GridLinesVisibility="None" BorderThickness="0" CanUserResizeColumns="False" CanUserReorderColumns="False" 
           HeadersVisibility="None" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" FontSize="15" ScrollViewer.CanContentScroll="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <local:OrderCard BorderThickness="1"/>
+                            <local:OrderCard BorderThickness="1" MouseDoubleClick="OrderCard_MouseDoubleClick"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate >
@@ -35,6 +65,11 @@
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
@@ -44,9 +79,25 @@
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-        </DataGrid>
+            <DataGrid.Style>
+                <Style TargetType="DataGrid">
+                    <Setter Property="ColumnWidth" Value="*"/>
+                    <Style.Triggers>
+                        <Trigger Property="ActualWidth" Value="500">
+                            <Setter Property="ColumnWidth" Value="Auto"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Style>
+        </DataGrid>-->
+        
         <Menu x:Name="MenuTopPanel" Grid.Row="0" Height="32" Width="auto" Background="Transparent">
             <DockPanel Width="auto" Focusable="False" Margin="-5, 0, 0,0">
                 <Button x:Name="LogoutMenu" Height="30" MinWidth="50"  BorderBrush="Black" Content="Выйти" FontSize="14" Click="LogoutMenu_Click"/>

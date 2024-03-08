@@ -55,6 +55,7 @@ namespace Gosuslugi
                     MessageBox.Show("Пользователь с таким логином уже существует!");
                     return;
                 }
+                MessageBox.Show("Успешная регистрация! Для входа нажмите кнопку 'Вход'");
                 context.Users.Add(u);
                 context.SaveChanges();
             }
@@ -62,7 +63,6 @@ namespace Gosuslugi
 
         internal static string HashPwd(string password)
         {
-
             // Создание экземпляра класса SHA256Managed
             using (SHA256Managed sha256 = new SHA256Managed())
             {
@@ -127,6 +127,7 @@ namespace Gosuslugi
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            AfterClosingAnimation.Animate(null, this);
             IterateTextBoxes(this);
         }
     }

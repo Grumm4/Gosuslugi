@@ -28,6 +28,7 @@ namespace Gosuslugi
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            AfterClosingAnimation.Animate(null, this);
             LoginTb.Text = Login.currentUser.Login;
             NameTb.Text = Login.currentUser.Name;
             PhoneTb.Text = Login.currentUser.PhoneNumber;
@@ -88,6 +89,7 @@ namespace Gosuslugi
 
                 if (user != null)
                 {
+                    Login.currentUser = user;
                     user.Login = LoginTb.Text;
                     user.Name = NameTb.Text;
                     user.PhoneNumber = PhoneTb.Text;
@@ -128,9 +130,6 @@ namespace Gosuslugi
             {
                 var all = context.Orders.Where(o => o.AcceptedUserId == Login.currentUser.Id).ToList();
 
-                //INSERT INTO my_table (id, numbers) VALUES (1, '[1, 2, 3, 4, 5]'); JSON!!!!!!!!!!!!!!!!
-
-
                 foreach (var order in all)
                 {
                     var orderCard = new OrderModel
@@ -165,10 +164,18 @@ namespace Gosuslugi
                     order.AcceptedUserId = 0;
                     context.SaveChanges();
                     ShowOrders();
+                    //DialogResult = true;
                 }
             }
         }
 
-        private void ClosePersonalAreaBt_Click(object sender, RoutedEventArgs e) => DialogResult = true;
+        private void ClosePersonalAreaBt_Click(object sender, RoutedEventArgs e) 
+        {
+            MessageBoxResult res = MessageBox.Show("Вы действительно хотите закрыть окно?", "Подтверждение", MessageBoxButton.YesNo);
+            if (res == MessageBoxResult.Yes)
+            {
+                AfterClosingAnimation.Animate(this, null);
+            }
+        }
     }
 }

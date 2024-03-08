@@ -6,7 +6,7 @@
     <!--Registration Login CreateOrderWindow OrderWindow-->
     <Application.Resources>
         <Style x:Key="MenuStyle" TargetType="Menu">
-            
+
             <Setter Property="Background" Value="White"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="BorderBrush" Value="Black"/>
@@ -19,4 +19,5 @@
             </Style.Triggers>
         </Style>
     </Application.Resources>
+    
 </Application>

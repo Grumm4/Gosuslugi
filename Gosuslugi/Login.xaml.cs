@@ -4,6 +4,7 @@ using System.Windows;
 using System.Security.Cryptography;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace Gosuslugi
 {
@@ -11,16 +12,15 @@ namespace Gosuslugi
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class Login : Window
-    {   
-        public static UserModel currentUser;
-
-        public Login()
-        {
-            InitializeComponent();
-        }
+    {
+        public static Login? LoginWindow;
+        public static UserModel? currentUser; 
 
         public void LoginLoaded(object sender, RoutedEventArgs e)
         {
+            LoginWindow = this;
+            //
+            AfterClosingAnimation.Animate(null, this);
             IterateTextBoxes(this);
         }
 
@@ -42,10 +42,11 @@ namespace Gosuslugi
                         Role = user.Role
                     };
 
-
+                    //AfterClosingAnimation.Animate(this, new OrderWindow());
                     OrderWindow ow = new OrderWindow();
+
                     ow.Show();
-                    Close();
+                    LoginWindow.Hide();
                 }
                 else
                 {
@@ -56,9 +57,10 @@ namespace Gosuslugi
 
         private void BtToReg_Click(object sender, RoutedEventArgs e)
         {
-            var r = new Registration();
-            r.Show();
-            this.Close();
+            AfterClosingAnimation.Animate(this, new Registration());
+            //var r = new Registration();
+            //r.Show();
+            //this.Close();
         }
 
         public static void IterateTextBoxes(DependencyObject parent)
@@ -82,9 +84,9 @@ namespace Gosuslugi
 
         void RemoveText(object sender, RoutedEventArgs e)
         {
-            TextBox tb = (sender as TextBox);
+            TextBox? tb = (sender as TextBox);
 
-            if (tb.Text == tb.Tag.ToString())
+            if (tb?.Text == tb?.Tag.ToString())
             {
                 tb.Text = "";
             }
@@ -92,12 +94,18 @@ namespace Gosuslugi
 
         void AddText(object sender, RoutedEventArgs e)
         {
-            TextBox tb = (sender as TextBox);
+            TextBox? tb = (sender as TextBox);
 
-            if (string.IsNullOrEmpty(tb.Text))
+            if (string.IsNullOrEmpty(tb?.Text))
             {
                 tb.Text = tb.Tag.ToString();
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
         }
     }
 }

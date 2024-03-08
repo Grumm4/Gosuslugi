@@ -5,16 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gosuslugi"
         mc:Ignorable="d"
-        Title="Регистрация" Height="450" Width="800" Loaded="LoginLoaded" WindowStartupLocation="CenterScreen">
-    <Grid >
+        Title="Вход" Height="450" MinHeight="265" Width="800" MinWidth="250" Loaded="LoginLoaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="LoginBox" TextWrapping="Wrap" Grid.Row="0" Width="250" Height="35" Tag="Логин" GotFocus="RemoveText" LostFocus="AddText" VerticalContentAlignment="Center"/>
-        <PasswordBox x:Name="PwdBox" Grid.Row="1" Width="250" Height="35" VerticalContentAlignment="Center"/>
-        <Button x:Name="LoginBt" Content="Войти" FontSize="16" Width="250" Height="35" Grid.Row="2" Click="LoginBt_Click"/>
-        <Button Grid.Row="2" HorizontalAlignment="Right" Width="50" Height="30" Content="reg" x:Name="BtToReg" Click="BtToReg_Click"/>
+        <TextBox x:Name="LoginBox" TextWrapping="Wrap" Grid.Row="0" Width="auto" MaxWidth="350" Height="20" Tag="Логин" GotFocus="RemoveText" LostFocus="AddText" VerticalContentAlignment="Center"/>
+        <PasswordBox x:Name="PwdBox" Grid.Row="1" Width="auto" MaxWidth="350" Height="20" ToolTip="Пароль"/>
+        <Button x:Name="LoginBt" Content="Войти" FontSize="16" Width="auto" MaxWidth="350" Height="25" Grid.Row="2" Click="LoginBt_Click"/>
+        <Button Grid.Row="3" HorizontalAlignment="Center" Width="auto" MaxWidth="350" Height="25" Content="Регистрация" x:Name="BtToReg" Click="BtToReg_Click" FontSize="16"/>
     </Grid>
 </Window>

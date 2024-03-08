@@ -5,15 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gosuslugi"
         mc:Ignorable="d"
-        Title="PersonalArea" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="PersonalArea" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
-        <Grid Height="165" VerticalAlignment="Top" Grid.Row="0" Width="auto">
+        <Grid Height="165" VerticalAlignment="Top" Grid.Row="1" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="200"/>
@@ -31,24 +33,25 @@
 
             <Button x:Name="ClosePersonalAreaBt" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right" Width="176" Margin="4" Content="Закрыть личный кабинет" FontSize="14" Click="ClosePersonalAreaBt_Click"/>
 
-            <TextBox x:Name="LoginTb" TextWrapping="Wrap"  Grid.Row="0" Grid.Column="1" BorderBrush="Black" Width="auto" IsEnabled="False" Margin="4" Tag="Login"/>
-            <Label Content="Логин" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="4" FontSize="14"/>
-            <Button x:Name="ChangeLoginBt" Grid.Column="2" Grid.Row="0" Content="Измеить" Margin="4" Click="ChangePersonalData" Tag="Login" FontSize="14"/>
+            <TextBox x:Name="LoginTb" TextWrapping="Wrap"  Grid.Row="0" Grid.Column="1" BorderBrush="Black" Width="auto" IsEnabled="False" Margin="5" Tag="Login"/>
+            <Label Content="Логин" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="2" FontSize="14"/>
+            <Button x:Name="ChangeLoginBt" Grid.Column="2" Grid.Row="0" Content="Измеить" Margin="5" Click="ChangePersonalData" Tag="Login" FontSize="14"/>
 
-            <TextBox x:Name="NameTb"  Grid.Row="1" Grid.Column="1" BorderBrush="Black" TextWrapping="Wrap" Width="auto" IsEnabled="False" Margin="4" Tag="Name"/>
-            <Label Content="ФИО" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="4" FontSize="14"/>
-            <Button x:Name="ChangeNameBt" Grid.Column="2" Grid.Row="1" Content="Измеить" Margin="4" Click="ChangePersonalData" Tag="Name" FontSize="14"/>
+            <TextBox x:Name="NameTb"  Grid.Row="1" Grid.Column="1" BorderBrush="Black" TextWrapping="Wrap" Width="auto" IsEnabled="False" Margin="5" Tag="Name"/>
+            <Label Content="ФИО" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="2" FontSize="14"/>
+            <Button x:Name="ChangeNameBt" Grid.Column="2" Grid.Row="1" Content="Измеить" Margin="5" Click="ChangePersonalData" Tag="Name" FontSize="14"/>
 
-            <TextBox x:Name="PhoneTb" Grid.Row="2" Grid.Column="1" BorderBrush="Black" Width="auto" IsEnabled="False" TextWrapping="Wrap" Margin="4" Tag="Phone"/>
-            <Label Content="Номер телефона" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Margin="4" FontSize="14"/>
-            <Button x:Name="ChangePhoneBt" Grid.Column="2" Grid.Row="2" Content="Измеить" Margin="4" Click="ChangePersonalData" Tag="Phone" FontSize="14"/>
+            <TextBox x:Name="PhoneTb" Grid.Row="2" Grid.Column="1" BorderBrush="Black" Width="auto" IsEnabled="False" TextWrapping="Wrap" Margin="5" Tag="Phone"/>
+            <Label Content="Номер телефона" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Margin="2" FontSize="14"/>
+            <Button x:Name="ChangePhoneBt" Grid.Column="2" Grid.Row="2" Content="Измеить" Margin="5" Click="ChangePersonalData" Tag="Phone" FontSize="14"/>
 
-            <TextBox x:Name="MailTb" Grid.Row="3" Grid.Column="1" Width="auto" IsEnabled="False" BorderBrush="Black" TextWrapping="Wrap" Margin="4" Tag="Mail"/>
-            <Label Content="Почта" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Margin="4" FontSize="14"/>
-            <Button x:Name="ChangeMailBt" Grid.Column="2" Grid.Row="3" Content="Измеить" Margin="4" Click="ChangePersonalData" Tag="Mail" FontSize="14"/>
+            <TextBox x:Name="MailTb" Grid.Row="3" Grid.Column="1" Width="auto" IsEnabled="False" BorderBrush="Black" TextWrapping="Wrap" Margin="5" Tag="Mail"/>
+            <Label Content="Почта" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Margin="2" FontSize="14"/>
+            <Button x:Name="ChangeMailBt" Grid.Column="2" Grid.Row="3" Content="Измеить" Margin="5" Click="ChangePersonalData" Tag="Mail" FontSize="14"/>
         </Grid>
-        <Label x:Name="LabelCountOrders" Grid.Row="1" HorizontalAlignment="Left" Width="200" Height="auto"/>
-        <DataGrid Grid.Row="2" x:Name="DGOrders" AutoGenerateColumns="False" VerticalContentAlignment="Center" Background="Transparent"
+        <Label Content="Ваши заказы: " Grid.Row="2" FontSize="14" Margin="2"/>
+        <Label x:Name="LabelCountOrders" Grid.Row="3" HorizontalAlignment="Left" Width="200" Height="auto"/>
+        <DataGrid Grid.Row="4" x:Name="DGOrders" AutoGenerateColumns="False" VerticalContentAlignment="Center" Background="Transparent"
                   GridLinesVisibility="None" BorderThickness="0" CanUserResizeColumns="False" CanUserReorderColumns="False" 
                   HeadersVisibility="None" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" 
                   FontSize="15" ScrollViewer.CanContentScroll="False">

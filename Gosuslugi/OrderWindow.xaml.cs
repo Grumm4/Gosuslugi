@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
 namespace Gosuslugi
 {
     /// <summary>
@@ -26,15 +17,6 @@ namespace Gosuslugi
 
         private void LabelCountOrders_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Login.currentUser.Role == "Admin") 
-            {
-                DGOrders.Columns[2].Visibility = Visibility.Collapsed; // Скрытие кнопки "принять заказ"
-            }
-            else
-            {
-                CreateOrderMenu.Visibility = Visibility.Collapsed; // Скрытие кнопки "создать заказ"
-                DGOrders.Columns[1].Visibility = Visibility.Collapsed; // Скрытие кнопки "удалить заказ"
-            }
             ShowOrders();
         }
 
@@ -49,7 +31,7 @@ namespace Gosuslugi
 
         void ShowOrders()
         {
-            List<OrderModel> orderCards = new List<OrderModel>();
+            List<OrderModel> orderModels = new List<OrderModel>();
 
             using (var context = new ApplicationContext())
             {
@@ -60,12 +42,9 @@ namespace Gosuslugi
                 else
                     orders = context.Orders.ToList();
 
-                //INSERT INTO my_table (id, numbers) VALUES (1, '[1, 2, 3, 4, 5]'); JSON!!!!!!!!!!!!!!!!
-
-
                 foreach (var order in orders)
                 {
-                    var orderCard = new OrderModel
+                    var orderModel = new OrderModel
                     {
                         Id = order.Id,
                         Title = order.Title,
@@ -73,15 +52,21 @@ namespace Gosuslugi
                         Date = order.Date,
                         Place = order.Place,
                         Contacts = order.Contacts,
-                        Comments = order.Comments
+                        Comments = order.Comments,
+                        
                     };
-                    
 
-                    orderCards.Add(orderCard);
+                    //получение имени исполнителя заказа
+                    int? id = order.AcceptedUserId.Value;
+                    string? exName = context.Users.Where(u => u.Id == id).FirstOrDefault()?.Name;
+                    orderModel.ExecutorName = exName;
+
+                    orderModels.Add(orderModel);
+                    
                 };
 
                 LabelCountOrders.Content = "Колличество активных заказов: " + orders.Count.ToString();
-                DGOrders.ItemsSource = orderCards;
+                ICOrders.ItemsSource = orderModels;
             }
         }
 
@@ -98,10 +83,11 @@ namespace Gosuslugi
 
         private void LogoutMenu_Click(object sender, RoutedEventArgs e)
         {
+            //var w = new Login();
             Login.currentUser = new UserModel();
-            Login l = new Login();
-            l.Show();
-            Close();
+            AfterClosingAnimation.Animate(this, Login.LoginWindow);
+            //Login.LoginWindow.Show();
+            
         }
 
         private void AcceptOrderBt_Click(object sender, RoutedEventArgs e)
@@ -110,21 +96,39 @@ namespace Gosuslugi
             using (var context = new ApplicationContext())
             {
                 var order = context.Orders.FirstOrDefault(o => o.Id==id);
-                order.AcceptedUserId = Login.currentUser.Id;
+                order.AcceptedUserId = Login.currentUser?.Id;
                 context.SaveChanges();
-                MessageBox.Show("Заказ принят и перемещён в личный кабинет");
                 ShowOrders();
+                MessageBox.Show("Заказ принят и перемещён в личный кабинет");
             }
         }
 
         private void ToPersonalArea_Click(object sender, RoutedEventArgs e)
         {
-            bool? result = new PersonalArea().ShowDialog();
-            if (result == true)
-            {
-                this.ShowOrders();
-            }
+            new PersonalArea().ShowDialog();
 
+            this.ShowOrders();
+        }
+
+        private void OrderCard_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show((sender as OrderCard).ExecutorName.Text);
+        }
+
+        private void DeleteBt_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Login.currentUser.Role != "Admin")
+            {
+                (sender as Button).Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void AcceptBt_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Login.currentUser.Role == "Admin")
+            {
+                (sender as Button).Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

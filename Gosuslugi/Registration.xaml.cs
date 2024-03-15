@@ -105,7 +105,7 @@ namespace Gosuslugi
             }
         }
 
-        void RemoveText(object sender, RoutedEventArgs e)
+        public void RemoveText(object sender, RoutedEventArgs e)
         {
             TextBox tb = (sender as TextBox);
 

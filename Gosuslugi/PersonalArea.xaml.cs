@@ -174,7 +174,7 @@ namespace Gosuslugi
             MessageBoxResult res = MessageBox.Show("Вы действительно хотите закрыть окно?", "Подтверждение", MessageBoxButton.YesNo);
             if (res == MessageBoxResult.Yes)
             {
-                AfterClosingAnimation.Animate(this, null);
+                AfterClosingAnimation.Animate(this, new OrderWindow());
             }
         }
     }

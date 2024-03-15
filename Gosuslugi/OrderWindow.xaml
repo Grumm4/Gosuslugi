@@ -9,7 +9,12 @@
     <Window.Resources>
         <local:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter"/>
     </Window.Resources>
+    
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Resources/bg.jpg" Stretch="Fill"/>
+        </Grid.Background>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
             <RowDefinition Height="30"/>

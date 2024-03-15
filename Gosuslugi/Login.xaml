@@ -5,21 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gosuslugi"
         mc:Ignorable="d"
-        Title="Вход" Height="450" MinHeight="265" Width="800" MinWidth="250" Loaded="LoginLoaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
-    <Grid Margin="20">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        Title="Вход" Height="450" MinHeight="265" Width="800" MinWidth="250" Loaded="LoginLoaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Resources/bg.jpg" Stretch="Fill" />
+        </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="LoginBox" TextWrapping="Wrap" Grid.Row="0" Width="auto" MaxWidth="350" Height="20" Tag="Логин" GotFocus="RemoveText" LostFocus="AddText" VerticalContentAlignment="Center"/>
-        <PasswordBox x:Name="PwdBox" Grid.Row="1" Width="auto" MaxWidth="350" Height="20" ToolTip="Пароль"/>
-        <Button x:Name="LoginBt" Content="Войти" FontSize="16" Width="auto" MaxWidth="350" Height="25" Grid.Row="2" Click="LoginBt_Click"/>
-        <Button Grid.Row="3" HorizontalAlignment="Center" Width="auto" MaxWidth="350" Height="25" Content="Регистрация" x:Name="BtToReg" Click="BtToReg_Click" FontSize="16"/>
+
+        <Grid Grid.Row="0">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button x:Name="CollapseBt" Width="25" Height="25" Content="⎯⎯"  Padding="0,0,2.9,3" Style="{StaticResource ButtonStyle}" Click="CollapseBt_Click"/>
+                <Separator Width="3" Background="Transparent" />
+                <Button x:Name="MaxiMinimizeBt" Width="25" Height="25" Content="◱" Style="{StaticResource ButtonStyle}" Click="MaxiMinimizeBt_Click"/>
+                <Separator Width="3" Background="Transparent"/>
+                <Button x:Name="CloseBt" Width="25" Height="25" Content="☓" Style="{StaticResource ButtonStyle}" Click="CloseBt_Click"/>
+                <Separator Width="3" Background="Transparent"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Margin="20" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="LoginBox" Grid.Row="0" Tag="Логин" GotFocus="RemoveText" LostFocus="AddText" Style="{StaticResource RegAndLoginWindowTbStyle}"/>
+            <PasswordBox x:Name="PwdBox" Grid.Row="1" Width="auto" MaxWidth="350" Height="20" ToolTip="Пароль" Background="Lavender"  BorderThickness="0"/>
+            <Button x:Name="LoginBt" Content="Войти" FontSize="16" Width="auto" MaxWidth="350" Height="25" Grid.Row="2" Click="LoginBt_Click" Background="Lavender"  BorderThickness="1" BorderBrush="CadetBlue"/>
+            <Button Grid.Row="3"  Width="auto" MaxWidth="350" Height="25" Content="Регистрация" x:Name="BtToReg" Click="BtToReg_Click" FontSize="16" Background="Lavender"  BorderThickness="1" BorderBrush="CadetBlue"/>
+        </Grid>
     </Grid>
 </Window>

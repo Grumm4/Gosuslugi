@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Gosuslugi"
              mc:Ignorable="d" 
-              MinHeight="150" Width="400" BorderThickness="0.5" BorderBrush="Black">
+              MinHeight="150" Width="400" BorderThickness="0.5" BorderBrush="Black" Background="Transparent">
     <UserControl.Resources>
         <local:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter" />
     </UserControl.Resources>

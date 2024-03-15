@@ -7,14 +7,29 @@
         mc:Ignorable="d"
         Title="PersonalArea" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Resources/bg.jpg" Stretch="None"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="29"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
+            
+        <Grid Grid.Row="0">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Width="25" Height="25" Content="⎯⎯"  Padding="0,0,2.9,3" Style="{StaticResource ButtonStyle}"/>
+                <Separator Width="3" Background="Transparent"/>
+                <Button Width="25" Height="25" Content="◱" Style="{StaticResource ButtonStyle}"/>
+                <Separator Width="3" Background="Transparent"/>
+                <Button Width="25" Height="25" Content="☓" Style="{StaticResource ButtonStyle}"/>
+                <Separator Width="3" Background="Transparent"/>
+            </StackPanel>
+        </Grid>
+            
         <Grid Height="165" VerticalAlignment="Top" Grid.Row="1" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
@@ -31,29 +46,29 @@
 
             </Grid.RowDefinitions>
 
-            <Button x:Name="ClosePersonalAreaBt" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right" Width="176" Margin="4" Content="Закрыть личный кабинет" FontSize="14" Click="ClosePersonalAreaBt_Click"/>
+            <!--<Button x:Name="ClosePersonalAreaBt" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right" Width="auto" Margin="4" Content="Закрыть личный кабинет" FontSize="16" Click="ClosePersonalAreaBt_Click" Style="{StaticResource ButtonStyle}"/>-->
 
-            <TextBox x:Name="LoginTb" TextWrapping="Wrap"  Grid.Row="0" Grid.Column="1" BorderBrush="Black" Width="auto" IsEnabled="False" Margin="5" Tag="Login"/>
+            <TextBox x:Name="LoginTb" Grid.Row="0" Grid.Column="1" IsEnabled="False" Margin="5" Tag="Login" Style="{StaticResource RegAndLoginWindowTbStyle}"/>
             <Label Content="Логин" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="2" FontSize="14"/>
-            <Button x:Name="ChangeLoginBt" Grid.Column="2" Grid.Row="0" Content="Измеить" Margin="5" Click="ChangePersonalData" Tag="Login" FontSize="14"/>
+            <Button x:Name="ChangeLoginBt" Grid.Column="2" Grid.Row="0" Content="Изменить" Margin="5" Click="ChangePersonalData" Tag="Login" FontSize="14" Style="{StaticResource ButtonStyle}"/>
 
-            <TextBox x:Name="NameTb"  Grid.Row="1" Grid.Column="1" BorderBrush="Black" TextWrapping="Wrap" Width="auto" IsEnabled="False" Margin="5" Tag="Name"/>
-            <Label Content="ФИО" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="2" FontSize="14"/>
-            <Button x:Name="ChangeNameBt" Grid.Column="2" Grid.Row="1" Content="Измеить" Margin="5" Click="ChangePersonalData" Tag="Name" FontSize="14"/>
+            <TextBox x:Name="NameTb"  Grid.Row="1" Grid.Column="1" IsEnabled="False" Margin="5" Tag="Name" Style="{StaticResource RegAndLoginWindowTbStyle}"/>
+            <Label Content="ФИО" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="2" FontSize="14" />
+            <Button x:Name="ChangeNameBt" Grid.Column="2" Grid.Row="1" Content="Изменить" Margin="5" Click="ChangePersonalData" Tag="Name" FontSize="14" Style="{StaticResource ButtonStyle}"/>
 
-            <TextBox x:Name="PhoneTb" Grid.Row="2" Grid.Column="1" BorderBrush="Black" Width="auto" IsEnabled="False" TextWrapping="Wrap" Margin="5" Tag="Phone"/>
+            <TextBox x:Name="PhoneTb" Grid.Row="2" Grid.Column="1" IsEnabled="False" Margin="5" Tag="Phone" Style="{StaticResource RegAndLoginWindowTbStyle}"/>
             <Label Content="Номер телефона" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Margin="2" FontSize="14"/>
-            <Button x:Name="ChangePhoneBt" Grid.Column="2" Grid.Row="2" Content="Измеить" Margin="5" Click="ChangePersonalData" Tag="Phone" FontSize="14"/>
+            <Button x:Name="ChangePhoneBt" Grid.Column="2" Grid.Row="2" Content="Изменить" Margin="5" Click="ChangePersonalData" Tag="Phone" FontSize="14" Style="{StaticResource ButtonStyle}"/>
 
-            <TextBox x:Name="MailTb" Grid.Row="3" Grid.Column="1" Width="auto" IsEnabled="False" BorderBrush="Black" TextWrapping="Wrap" Margin="5" Tag="Mail"/>
+            <TextBox x:Name="MailTb" Grid.Row="3" Grid.Column="1" IsEnabled="False" Margin="5" Tag="Mail" Style="{StaticResource RegAndLoginWindowTbStyle}"/>
             <Label Content="Почта" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Margin="2" FontSize="14"/>
-            <Button x:Name="ChangeMailBt" Grid.Column="2" Grid.Row="3" Content="Измеить" Margin="5" Click="ChangePersonalData" Tag="Mail" FontSize="14"/>
+            <Button x:Name="ChangeMailBt" Grid.Column="2" Grid.Row="3" Content="Изменить" Margin="5" Click="ChangePersonalData" Tag="Mail" FontSize="14" Style="{StaticResource ButtonStyle}"/>
         </Grid>
         <Label Content="Ваши заказы: " Grid.Row="2" FontSize="14" Margin="2"/>
         <Label x:Name="LabelCountOrders" Grid.Row="3" HorizontalAlignment="Left" Width="200" Height="auto"/>
-        <DataGrid Grid.Row="4" x:Name="DGOrders" AutoGenerateColumns="False" VerticalContentAlignment="Center" Background="Transparent"
+        <DataGrid Grid.Row="4" x:Name="DGOrders" AutoGenerateColumns="False" VerticalContentAlignment="Center"
                   GridLinesVisibility="None" BorderThickness="0" CanUserResizeColumns="False" CanUserReorderColumns="False" 
-                  HeadersVisibility="None" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" 
+                  HeadersVisibility="None" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" Background="Transparent"
                   FontSize="15" ScrollViewer.CanContentScroll="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>

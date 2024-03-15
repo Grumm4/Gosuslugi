@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
+using System.Reflection;
 namespace Gosuslugi
 {
     /// <summary>
@@ -85,29 +85,51 @@ namespace Gosuslugi
         {
             //var w = new Login();
             Login.currentUser = new UserModel();
-            AfterClosingAnimation.Animate(this, Login.LoginWindow);
+            AfterClosingAnimation.Animate(this, new Login());
             //Login.LoginWindow.Show();
             
         }
 
         private void AcceptOrderBt_Click(object sender, RoutedEventArgs e)
         {
-            int id = (int)((Button)sender).CommandParameter; // получение Id заказа при клике по кнопке рядом с ним
-            using (var context = new ApplicationContext())
+            Type objectType = Login.currentUser.GetType();
+            PropertyInfo[] properties = objectType.GetProperties();
+
+            bool fieldsIsNull = false;
+            foreach (PropertyInfo propertyInfo in properties)
             {
-                var order = context.Orders.FirstOrDefault(o => o.Id==id);
-                order.AcceptedUserId = Login.currentUser?.Id;
-                context.SaveChanges();
-                ShowOrders();
-                MessageBox.Show("Заказ принят и перемещён в личный кабинет");
+                object value = propertyInfo.GetValue(Login.currentUser, null);
+                if (value != null) 
+                {
+                    fieldsIsNull = true;
+                }
+            }
+
+            if (!fieldsIsNull)
+            {
+                int id = (int)((Button)sender).CommandParameter; // получение Id заказа при клике по кнопке рядом с ним
+                using (var context = new ApplicationContext())
+                {
+                    var order = context.Orders.FirstOrDefault(o => o.Id == id);
+                    order.AcceptedUserId = Login.currentUser?.Id;
+                    context.SaveChanges();
+                    ShowOrders();
+                    MessageBox.Show("Заказ принят и перемещён в личный кабинет");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Чтобы принять заказ заполните все данные о себе в личном кабинете!", "Ошибка", MessageBoxButton.OK);
             }
         }
 
         private void ToPersonalArea_Click(object sender, RoutedEventArgs e)
         {
-            new PersonalArea().ShowDialog();
+            //new PersonalArea().ShowDialog();
 
-            this.ShowOrders();
+            //this.ShowOrders();
+
+            AfterClosingAnimation.Animate(this, new PersonalArea());
         }
 
         private void OrderCard_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -13,14 +13,16 @@ namespace Gosuslugi
     /// </summary>
     public partial class Login : Window
     {
-        public static Login? LoginWindow;
-        public static UserModel? currentUser; 
+        public static UserModel? currentUser;
 
+        public Login()
+        {
+            InitializeComponent();
+        }
         public void LoginLoaded(object sender, RoutedEventArgs e)
         {
-            LoginWindow = this;
             //
-            AfterClosingAnimation.Animate(null, this);
+            //AfterClosingAnimation.Animate(null, this);
             IterateTextBoxes(this);
         }
 
@@ -42,11 +44,15 @@ namespace Gosuslugi
                         Role = user.Role
                     };
 
-                    //AfterClosingAnimation.Animate(this, new OrderWindow());
-                    OrderWindow ow = new OrderWindow();
+                    AfterClosingAnimation.Animate(this, new OrderWindow());
+                    //LoginBox.Text = string.Empty;
+                    //PwdBox.Password = string.Empty;
 
-                    ow.Show();
-                    LoginWindow.Hide();
+
+                    //OrderWindow ow = new OrderWindow();
+
+                    //ow.Show();
+                    //this.Close();
                 }
                 else
                 {
@@ -104,8 +110,29 @@ namespace Gosuslugi
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            e.Cancel = true;
-            this.Hide();
+            //AfterClosingAnimation.Animate(this, null);
+        }
+
+        private void CollapseBt_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void MaxiMinimizeBt_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                this.WindowState = WindowState.Maximized;
+            }
+        }
+
+        private void CloseBt_Click(object sender, RoutedEventArgs e)
+        {
+            AfterClosingAnimation.Animate(this, null);
         }
     }
 }

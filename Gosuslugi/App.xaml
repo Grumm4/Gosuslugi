@@ -18,6 +18,21 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Style x:Key="RegAndLoginWindowTbStyle" TargetType="TextBox">
+            <Setter Property="MaxWidth" Value="350"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Background" Value="Lavender"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Width" Value="auto"/>
+        </Style>
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Lavender"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="CadetBlue"/>
+        </Style>
     </Application.Resources>
     
 </Application>

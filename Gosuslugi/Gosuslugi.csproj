@@ -10,7 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\bg.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Resources\Logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\bg.jpg" />
   </ItemGroup>
 
   <ItemGroup>

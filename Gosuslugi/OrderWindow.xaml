@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         xmlns:local="clr-namespace:Gosuslugi"
         mc:Ignorable="d"
-        Title="OrderWindow" Height="450" Width="1450"  WindowStartupLocation="CenterScreen" x:Name="MainWindow">
+        Title="Заказы" Height="450" Width="1450"  WindowStartupLocation="CenterScreen" x:Name="MainWindow" WindowStyle="None" MouseLeftButtonDown="MainWindow_MouseLeftButtonDown">
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="0" ResizeBorderThickness="4"/>
+    </shell:WindowChrome.WindowChrome>
     <Window.Resources>
         <local:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter"/>
     </Window.Resources>
@@ -16,6 +20,7 @@
         </Grid.Background>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="32"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
@@ -23,10 +28,22 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="LabelCountOrders" Grid.Row="1" HorizontalAlignment="Left" Width="200" Height="auto" Loaded="LabelCountOrders_Loaded"/>
+        <Grid Grid.Row="0" Background="Transparent" Height="29" Opacity="1">
+            <Label Content="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=Title}" FontSize="14" Foreground="White"/>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Background="Transparent" Height="26">
+                <Button x:Name="CollapseBt" Width="26" Height="26" Content="⎯⎯"  Padding="0,0,2.9,3" Style="{StaticResource ButtonStyle}" Click="CollapseBt_Click"/>
+                <Separator Width="3" Background="Transparent" />
+                <Button x:Name="MaxiMinimizeBt" Width="26" Height="26" Content="◱" Style="{StaticResource ButtonStyle}" Click="MaxiMinimizeBt_Click"/>
+                <Separator Width="3" Background="Transparent"/>
+                <Button x:Name="CloseBt" Width="26" Height="26" Content="☓" Style="{StaticResource ButtonStyle}" Click="CloseBt_Click" VerticalAlignment="Center"/>
+                <Separator Width="3" Background="Transparent"/>
+            </StackPanel>
+        </Grid>
+        <Separator Grid.Row="0" VerticalAlignment="Bottom" Background="Black" />
+        <Label x:Name="LabelCountOrders" Grid.Row="2" HorizontalAlignment="Left" Width="200" Height="auto" Loaded="LabelCountOrders_Loaded"/>
 
-        <ScrollViewer Grid.Row="2">
-            <ItemsControl x:Name="ICOrders" ItemsSource="{Binding orderModels}"  >
+        <ScrollViewer Grid.Row="3">
+            <ItemsControl x:Name="ICOrders" ItemsSource="{Binding orderModels}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel x:Name="StackPan" Orientation="Horizontal" Margin="5">
@@ -103,7 +120,7 @@
             </DataGrid.Style>
         </DataGrid>-->
         
-        <Menu x:Name="MenuTopPanel" Grid.Row="0" Height="32" Width="auto" Background="Transparent">
+        <Menu x:Name="MenuTopPanel" Grid.Row="1" Height="32" Width="auto" Background="Transparent">
             <DockPanel Width="auto" Focusable="False" Margin="-5, 0, 0,0">
                 <Button x:Name="LogoutMenu" Height="30" MinWidth="50"  BorderBrush="Black" Content="Выйти" FontSize="14" Click="LogoutMenu_Click"/>
                 <Separator Width="1" Background="Transparent"/>

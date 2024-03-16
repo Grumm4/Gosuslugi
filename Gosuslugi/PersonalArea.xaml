@@ -5,31 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gosuslugi"
         mc:Ignorable="d"
-        Title="PersonalArea" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="PersonalArea" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="Resources/bg.jpg" Stretch="None"/>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="29"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
-            
-        <Grid Grid.Row="0">
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Width="25" Height="25" Content="⎯⎯"  Padding="0,0,2.9,3" Style="{StaticResource ButtonStyle}"/>
+
+        <Grid Grid.Row="0" Background="Transparent" Height="29" Opacity="1">
+            <Label Content="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=Title}" FontSize="14" Foreground="White"/>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Background="Transparent" Height="26">
+                <Button x:Name="CollapseBt" Width="26" Height="26" Content="⎯⎯"  Padding="0,0,2.9,3" Style="{StaticResource ButtonStyle}" Click="CollapseBt_Click"/>
+                <Separator Width="3" Background="Transparent" />
+                <Button x:Name="MaxiMinimizeBt" Width="26" Height="26" Content="◱" Style="{StaticResource ButtonStyle}" Click="MaxiMinimizeBt_Click"/>
                 <Separator Width="3" Background="Transparent"/>
-                <Button Width="25" Height="25" Content="◱" Style="{StaticResource ButtonStyle}"/>
-                <Separator Width="3" Background="Transparent"/>
-                <Button Width="25" Height="25" Content="☓" Style="{StaticResource ButtonStyle}"/>
+                <Button x:Name="CloseBt" Width="26" Height="26" Content="☓" Style="{StaticResource ButtonStyle}" Click="CloseBt_Click" VerticalAlignment="Center"/>
                 <Separator Width="3" Background="Transparent"/>
             </StackPanel>
         </Grid>
-            
+        <Separator Grid.Row="0" VerticalAlignment="Bottom" Background="Black" />
+
         <Grid Height="165" VerticalAlignment="Top" Grid.Row="1" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>

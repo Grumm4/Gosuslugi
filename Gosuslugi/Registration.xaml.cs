@@ -130,5 +130,32 @@ namespace Gosuslugi
             AfterClosingAnimation.Animate(null, this);
             IterateTextBoxes(this);
         }
+
+        private void CollapseBt_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void MaxiMinimizeBt_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                this.WindowState = WindowState.Maximized;
+            }
+        }
+
+        private void CloseBt_Click(object sender, RoutedEventArgs e)
+        {
+            AfterClosingAnimation.Animate(this, null);
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }

@@ -5,11 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Gosuslugi"
              mc:Ignorable="d" 
-              MinHeight="150" Width="400" BorderThickness="0.5" BorderBrush="Black" Background="Transparent">
+              MinHeight="150" Width="380" BorderThickness="1" BorderBrush="Black" Background="Lavender">
     <UserControl.Resources>
         <local:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter" />
     </UserControl.Resources>
-    <Grid>
+    <Grid Background="Lavender" Margin="2">
         <Grid.RowDefinitions>
             <RowDefinition Height="25*"/>
             <RowDefinition Height="25*"/>
@@ -20,31 +20,31 @@
             <RowDefinition Height="25*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="LabelTitle" Grid.Row="0" Height="auto" Width="400" TextWrapping="Wrap">
+        <TextBlock x:Name="LabelTitle" Grid.Row="0" Height="auto" Width="374" TextWrapping="Wrap" >
             <Run Text="Название заказа: " FontWeight="Bold"/>
             <Run Text="{Binding Title}"/>
         </TextBlock>
-        <TextBlock x:Name="LabelPrice" Grid.Row="1" Height="auto" Width="400" TextWrapping="Wrap">
+        <TextBlock x:Name="LabelPrice" Grid.Row="1" Height="auto" Width="374" TextWrapping="Wrap">
             <Run Text="Цена за выполнение: " FontWeight="Bold"/>
             <Run Text="{Binding Price}"/>
         </TextBlock>
-        <TextBlock x:Name="LabelDate" Grid.Row="2" Height="auto" Width="400" TextWrapping="Wrap">
+        <TextBlock x:Name="LabelDate" Grid.Row="2" Height="auto" Width="374" TextWrapping="Wrap">
             <Run Text="Дата выполнения: " FontWeight="Bold"/>
             <Run Text="{Binding Date}"/>
         </TextBlock>
-        <TextBlock x:Name="LabelPlace" Grid.Row="3" Height="auto" Width="400" TextWrapping="Wrap">
+        <TextBlock x:Name="LabelPlace" Grid.Row="3" Height="auto" Width="374" TextWrapping="Wrap">
             <Run Text="Место выполнения: " FontWeight="Bold"/>
             <Run Text="{Binding Place}"/>
         </TextBlock>
-        <TextBlock x:Name="LabelContacts" Grid.Row="4" Width="400" TextWrapping="Wrap">
+        <TextBlock x:Name="LabelContacts" Grid.Row="4" Width="374" TextWrapping="Wrap">
             <Run Text="Контакты: " FontWeight="Bold"/>
             <Run Text="{Binding Contacts}"/>
         </TextBlock>
-        <TextBlock x:Name="LabelComments" Grid.Row="5" Width="400" TextWrapping="Wrap" >
+        <TextBlock x:Name="LabelComments" Grid.Row="5" Width="374" TextWrapping="Wrap" >
             <Run Text="Комментарии к заказу: " FontWeight="Bold"/>
             <Run Text="{Binding Comments}"/>
         </TextBlock>
-        <TextBlock x:Name="ExecutorName" Grid.Row="6" Height="auto" Width="400" TextWrapping="Wrap" Visibility="{Binding ExecutorName, Converter={StaticResource EmptyStringToVisibilityConverter}}">
+        <TextBlock x:Name="ExecutorName" Grid.Row="6" Height="auto" Width="374" TextWrapping="Wrap" Visibility="{Binding ExecutorName, Converter={StaticResource EmptyStringToVisibilityConverter}}">
             <Run Text="Исполнитель: " FontWeight="Bold"/>
             <Run Text="{Binding ExecutorName}"/>
         </TextBlock>

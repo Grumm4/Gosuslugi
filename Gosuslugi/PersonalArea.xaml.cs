@@ -40,7 +40,7 @@ namespace Gosuslugi
 
             if (Login.currentUser.Role == "Admin")
             {
-                DGOrders.Visibility = Visibility.Collapsed;
+                ICOrders.Visibility = Visibility.Collapsed;
                 LabelCountOrders.Visibility = Visibility.Collapsed;
             }
         }
@@ -148,7 +148,7 @@ namespace Gosuslugi
                 };
 
                 LabelCountOrders.Content = "Колличество активных заказов: " + all.Count.ToString();
-                DGOrders.ItemsSource = orderCards;
+                ICOrders.ItemsSource = orderCards;
             }
         }
 
@@ -195,14 +195,36 @@ namespace Gosuslugi
             }
         }
 
-        private void CloseBt_Click(object sender, RoutedEventArgs e)
-        {
-            AfterClosingAnimation.Animate(this, new OrderWindow());
-        }
+        
 
-        private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void MainWindow_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            DragMove();
+            if (GridHeader.IsMouseOver)
+            {
+                if (this.WindowState == WindowState.Maximized)
+                {
+                    Point mousePosition = Mouse.GetPosition(this);
+                    Point screenPosition = PointToScreen(mousePosition);
+
+                    this.WindowState = WindowState.Normal;
+
+                    double newX = screenPosition.X - (ActualWidth / 2);
+                    double newY = screenPosition.Y - (e.GetPosition(this).Y);
+
+                    double wind = newX + this.Width;
+
+                    //проверки, чтобы окно не выходило за рамки экрана
+                    if (wind > 1920)
+                        newX = 1920 - this.Width;
+
+                    if (newX < 0)
+                        newX = 0;
+
+                    this.Left = newX;
+                    this.Top = newY;
+                }
+                DragMove();
+            }
         }
     }
 }

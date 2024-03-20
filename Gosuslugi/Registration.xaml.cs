@@ -153,9 +153,33 @@ namespace Gosuslugi
             AfterClosingAnimation.Animate(this, null);
         }
 
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void MainWindow_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            DragMove();
+            if (GridHeader.IsMouseOver)
+            {
+                if (this.WindowState == WindowState.Maximized)
+                {
+                    Point mousePosition = Mouse.GetPosition(this);
+                    Point screenPosition = PointToScreen(mousePosition);
+
+                    this.WindowState = WindowState.Normal;
+
+                    double newX = screenPosition.X - (ActualWidth / 2);
+                    double newY = screenPosition.Y - (e.GetPosition(this).Y);
+
+                    double wind = newX + this.Width;
+
+                    if (wind > 1920)
+                        newX = 1920 - this.Width;
+
+                    if (newX < 0)
+                        newX = 0;
+
+                    this.Left = newX;
+                    this.Top = newY;
+                }
+                DragMove();
+            }
         }
     }
 }

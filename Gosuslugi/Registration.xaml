@@ -6,7 +6,7 @@
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         xmlns:local="clr-namespace:Gosuslugi"
         mc:Ignorable="d"
-        Title="Регистрация" Height="450" MinHeight="265" Width="800" MinWidth="220" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        Title="Регистрация" MinHeight="265" Height="700" Width="1440" MinWidth="220" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" WindowStyle="None" MouseLeftButtonDown="MainWindow_MouseLeftButtonDown">
     <shell:WindowChrome.WindowChrome>
         <shell:WindowChrome CaptionHeight="0" ResizeBorderThickness="4"/>
     </shell:WindowChrome.WindowChrome>
@@ -18,7 +18,7 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="Transparent" Height="29" Opacity="1">
+        <Grid x:Name="GridHeader" Grid.Row="0" Background="Transparent" Height="29" Opacity="1">
             <Label Content="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=Title}" FontSize="14" Foreground="White"/>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Background="Transparent" Height="26">
                 <Button x:Name="CollapseBt" Width="26" Height="26" Content="⎯⎯"  Padding="0,0,2.9,3" Style="{StaticResource ButtonStyle}" Click="CollapseBt_Click"/>
@@ -43,12 +43,12 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="TbEmail" Tag="Почта" GotFocus="RemoveText" LostFocus="AddText" Grid.Row="0" Style="{StaticResource RegAndLoginWindowTbStyle}"/>
-            <TextBox x:Name="TbPhone" Tag="Телефон" GotFocus="RemoveText" LostFocus="AddText" Grid.Row="1" Style="{StaticResource RegAndLoginWindowTbStyle}"/>
-            <TextBox x:Name="TbLogin" Tag="Логин" GotFocus="RemoveText" LostFocus="AddText" Grid.Row="2" Style="{StaticResource RegAndLoginWindowTbStyle}"/>
-            <PasswordBox x:Name="TbPass" Width="auto" MaxWidth="350" Height="20" Grid.Row="3" ToolTip="Пароль" Background="Lavender"  BorderThickness="0"/>
-            <Button x:Name="RegistrBt" Content="Зарегистрироваться" Width="auto" MaxWidth="350" Click="RegistrBt_Click" Height="25" Grid.Row="4" FontSize="16" Background="Lavender"  BorderThickness="1" BorderBrush="CadetBlue"/>
-            <Button x:Name="BtToLogin" Content="Вход" Width="auto" MaxWidth="350" Height="25" Grid.Row="5" Click="BtToLogin_Click" FontSize="16" Background="Lavender"  BorderThickness="1" BorderBrush="CadetBlue" />
+            <TextBox x:Name="TbEmail" Tag="Почта" GotFocus="RemoveText" LostFocus="AddText" Grid.Row="0" Style="{StaticResource RegAndLoginWindowTbStyle}" TabIndex="0"/>
+            <TextBox x:Name="TbPhone" Tag="Телефон" GotFocus="RemoveText" LostFocus="AddText" Grid.Row="1" Style="{StaticResource RegAndLoginWindowTbStyle}" TabIndex="1"/>
+            <TextBox x:Name="TbLogin" Tag="Логин" GotFocus="RemoveText" LostFocus="AddText" Grid.Row="2" Style="{StaticResource RegAndLoginWindowTbStyle}" TabIndex="2"/>
+            <PasswordBox x:Name="TbPass" Width="auto" MaxWidth="350" Height="20" Grid.Row="3" ToolTip="Пароль" Background="Lavender"  BorderThickness="0" TabIndex="3"/>
+            <Button x:Name="RegistrBt" Content="Зарегистрироваться" Width="auto" MaxWidth="350" Click="RegistrBt_Click" Height="25" Grid.Row="4" FontSize="16" TabIndex="4" Style="{StaticResource ButtonStyle}"/>
+            <Button x:Name="BtToLogin" Content="Вход" Width="auto" MaxWidth="350" Height="25" Grid.Row="5" Click="BtToLogin_Click" FontSize="16" TabIndex="5" Style="{StaticResource ButtonStyle}"/>
         </Grid>
     </Grid>
 </Window>

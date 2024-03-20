@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Input;
 
 namespace Gosuslugi
 {
@@ -21,8 +22,6 @@ namespace Gosuslugi
         }
         public void LoginLoaded(object sender, RoutedEventArgs e)
         {
-            //
-            //AfterClosingAnimation.Animate(null, this);
             IterateTextBoxes(this);
         }
 
@@ -45,14 +44,6 @@ namespace Gosuslugi
                     };
 
                     AfterClosingAnimation.Animate(this, new OrderWindow());
-                    //LoginBox.Text = string.Empty;
-                    //PwdBox.Password = string.Empty;
-
-
-                    //OrderWindow ow = new OrderWindow();
-
-                    //ow.Show();
-                    //this.Close();
                 }
                 else
                 {
@@ -64,9 +55,6 @@ namespace Gosuslugi
         private void BtToReg_Click(object sender, RoutedEventArgs e)
         {
             AfterClosingAnimation.Animate(this, new Registration());
-            //var r = new Registration();
-            //r.Show();
-            //this.Close();
         }
 
         public static void IterateTextBoxes(DependencyObject parent)
@@ -81,9 +69,7 @@ namespace Gosuslugi
                     {
                         textBox.Text = textBox.Tag.ToString();
                     }
-
                 }
-
                 IterateTextBoxes(child);
             }
         }
@@ -108,11 +94,6 @@ namespace Gosuslugi
             }
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            //AfterClosingAnimation.Animate(this, null);
-        }
-
         private void CollapseBt_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
@@ -135,9 +116,33 @@ namespace Gosuslugi
             AfterClosingAnimation.Animate(this, null);
         }
 
-        private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void MainWindow_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            DragMove();
+            if (GridHeader.IsMouseOver)
+            {
+                if (this.WindowState == WindowState.Maximized)
+                {
+                    Point mousePosition = Mouse.GetPosition(this);
+                    Point screenPosition = PointToScreen(mousePosition);
+
+                    this.WindowState = WindowState.Normal;
+
+                    double newX = screenPosition.X - (ActualWidth / 2);
+                    double newY = screenPosition.Y - (e.GetPosition(this).Y);
+
+                    double wind = newX + this.Width;
+
+                    if (wind > 1920)
+                        newX = 1920 - this.Width;
+
+                    if (newX < 0)
+                        newX = 0;
+
+                    this.Left = newX;
+                    this.Top = newY;
+                }
+                DragMove();
+            }
         }
     }
 }

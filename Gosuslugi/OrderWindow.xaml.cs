@@ -3,6 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Reflection;
+using System.Runtime.InteropServices;
+
+
 namespace Gosuslugi
 {
     /// <summary>
@@ -15,9 +18,10 @@ namespace Gosuslugi
             InitializeComponent();
         }
 
-        private void LabelCountOrders_Loaded(object sender, RoutedEventArgs e)
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             ShowOrders();
+            
         }
 
         private void CreateOrderMenu_Click(object sender, RoutedEventArgs e)
@@ -92,6 +96,8 @@ namespace Gosuslugi
 
         private void AcceptOrderBt_Click(object sender, RoutedEventArgs e)
         {
+            //new Login().ShowUserFields();
+            //.Show((sender as Button).ActualHeight.ToString() + (sender as Button).ActualWidth);
             Type objectType = Login.currentUser.GetType();
             PropertyInfo[] properties = objectType.GetProperties();
 
@@ -99,7 +105,7 @@ namespace Gosuslugi
             foreach (PropertyInfo propertyInfo in properties)
             {
                 object value = propertyInfo.GetValue(Login.currentUser, null);
-                if (value != null) 
+                if (value == null) 
                 {
                     fieldsIsNull = true;
                 }
@@ -177,7 +183,24 @@ namespace Gosuslugi
 
         private void MainWindow_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            DragMove();
+            if (GridHeader.IsMouseOver)
+            {
+                if (this.WindowState == WindowState.Maximized)
+                {
+                    Point mousePosition = Mouse.GetPosition(this);
+                    Point screenPosition = PointToScreen(mousePosition);
+
+                    this.WindowState = WindowState.Normal;
+
+                    double newX = screenPosition.X - (ActualWidth / 2);
+                    double newY = screenPosition.Y - (e.GetPosition(this).Y);
+
+
+                    this.Left = newX;
+                    this.Top = newY;
+                }
+                DragMove();
+            }
         }
     }
 }

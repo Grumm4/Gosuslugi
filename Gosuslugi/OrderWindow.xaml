@@ -6,14 +6,14 @@
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         xmlns:local="clr-namespace:Gosuslugi"
         mc:Ignorable="d"
-        Title="Заказы" Height="450" Width="1450"  WindowStartupLocation="CenterScreen" x:Name="MainWindow" WindowStyle="None" MouseLeftButtonDown="MainWindow_MouseLeftButtonDown">
+        Title="Заказы" Height="700" Width="1440"  WindowStartupLocation="CenterScreen" x:Name="MainWindow" WindowStyle="None" MouseLeftButtonDown="MainWindow_MouseLeftButtonDown" Loaded="MainWindow_Loaded">
     <shell:WindowChrome.WindowChrome>
         <shell:WindowChrome CaptionHeight="0" ResizeBorderThickness="4"/>
     </shell:WindowChrome.WindowChrome>
     <Window.Resources>
         <local:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter"/>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="Resources/bg.jpg" Stretch="Fill"/>
@@ -28,7 +28,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Background="Transparent" Height="29" Opacity="1">
+        <Grid x:Name="GridHeader" Grid.Row="0" Background="Transparent" Height="29" Opacity="1">
             <Label Content="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=Title}" FontSize="14" Foreground="White"/>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Background="Transparent" Height="26">
                 <Button x:Name="CollapseBt" Width="26" Height="26" Content="⎯⎯"  Padding="0,0,2.9,3" Style="{StaticResource ButtonStyle}" Click="CollapseBt_Click"/>
@@ -40,16 +40,16 @@
             </StackPanel>
         </Grid>
         <Separator Grid.Row="0" VerticalAlignment="Bottom" Background="Black" />
-        <Label x:Name="LabelCountOrders" Grid.Row="2" HorizontalAlignment="Left" Width="200" Height="auto" Loaded="LabelCountOrders_Loaded"/>
+        <Label x:Name="LabelCountOrders" Grid.Row="2" HorizontalAlignment="Left" Width="200" Height="auto" Foreground="White"/>
 
         <ScrollViewer Grid.Row="3">
             <ItemsControl x:Name="ICOrders" ItemsSource="{Binding orderModels}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel x:Name="StackPan" Orientation="Horizontal" Margin="5">
-                            <local:OrderCard BorderThickness="1" MouseDoubleClick="OrderCard_MouseDoubleClick" Margin="3"/>
-                            <Button Content="Удалить заказ" Click="DeleteOrderBt_Click" CommandParameter="{Binding Id}" Loaded="DeleteBt_Loaded" Margin="3"/>
-                            <Button Content="Принять заказ" Click="AcceptOrderBt_Click" CommandParameter="{Binding Id}" Loaded="AcceptBt_Loaded" Margin="3"/>
+                            <local:OrderCard BorderThickness="1" MouseDoubleClick="OrderCard_MouseDoubleClick" Margin="3" />
+                            <Button x:Name="bt" Content="Удалить" Click="DeleteOrderBt_Click" CommandParameter="{Binding Id}" Loaded="DeleteBt_Loaded" Margin="3" Style="{StaticResource ButtonStyle}"/>
+                            <Button Content="Принять" Width="75" FontSize="14" Click="AcceptOrderBt_Click" CommandParameter="{Binding Id}" Loaded="AcceptBt_Loaded" Margin="3" Style="{StaticResource ButtonStyle}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -60,8 +60,6 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
-        
-        
 
         <!--<DataGrid x:Name="DGOrders" Grid.Row="2" AutoGenerateColumns="False" VerticalContentAlignment="Center" Background="Transparent" RowBackground="Transparent"
           GridLinesVisibility="None" BorderThickness="0" CanUserResizeColumns="False" CanUserReorderColumns="False" 
@@ -119,15 +117,15 @@
                 </Style>
             </DataGrid.Style>
         </DataGrid>-->
-        
+
         <Menu x:Name="MenuTopPanel" Grid.Row="1" Height="32" Width="auto" Background="Transparent">
             <DockPanel Width="auto" Focusable="False" Margin="-5, 0, 0,0">
-                <Button x:Name="LogoutMenu" Height="30" MinWidth="50"  BorderBrush="Black" Content="Выйти" FontSize="14" Click="LogoutMenu_Click"/>
+                <Button x:Name="LogoutMenu" Height="30" MinWidth="50" Content="Выйти" FontSize="14" Click="LogoutMenu_Click" Style="{StaticResource ButtonStyle}"/>
                 <Separator Width="1" Background="Transparent"/>
-                <Button x:Name="CreateOrderMenu" Height="30" MinWidth="50"  BorderBrush="Black" Content="Создать заказ" FontSize="14" Click="CreateOrderMenu_Click"/>
+                <Button x:Name="CreateOrderMenu" Height="30" MinWidth="50" Content="Создать заказ" FontSize="14" Click="CreateOrderMenu_Click" Style="{StaticResource ButtonStyle}"/>
                 <Separator Width="1" Background="Transparent"/>
-                <Button  x:Name="ToPersonalArea" Height="30" MinWidth="50" BorderBrush="Black" Content="Личный кабинет" FontSize="14" Click="ToPersonalArea_Click" HorizontalAlignment="Left"/>
-                
+                <Button x:Name="ToPersonalArea" Height="30" MinWidth="50" Content="Личный кабинет" FontSize="14" Click="ToPersonalArea_Click" Style="{StaticResource ButtonStyle}"/>
+
             </DockPanel>
         </Menu>
     </Grid>

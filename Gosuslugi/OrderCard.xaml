@@ -5,11 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Gosuslugi"
              mc:Ignorable="d" 
-              MinHeight="150" Width="380" BorderThickness="1" BorderBrush="Black" Background="Lavender">
+              MinHeight="150" Width="auto" BorderThickness="1" BorderBrush="Black" Background="Lavender" >
     <UserControl.Resources>
         <local:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter" />
     </UserControl.Resources>
-    <Grid Background="Lavender" Margin="2">
+    <Grid Background="Lavender" Margin="2"  HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="25*"/>
             <RowDefinition Height="25*"/>

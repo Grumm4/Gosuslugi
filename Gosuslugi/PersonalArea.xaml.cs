@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace Gosuslugi
     /// </summary>
     public partial class PersonalArea : Window
     {
+        Button? bt = new Button();
         TextBox tb = new TextBox();
         List<Button> buttonList = new List<Button>() { };
         public PersonalArea()
@@ -28,7 +30,7 @@ namespace Gosuslugi
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            AfterClosingAnimation.Animate(null, this);
+            //AfterClosingAnimation.Animate(null, this);
             LoginTb.Text = Login.currentUser.Login;
             NameTb.Text = Login.currentUser.Name;
             PhoneTb.Text = Login.currentUser.PhoneNumber;
@@ -40,14 +42,15 @@ namespace Gosuslugi
 
             if (Login.currentUser.Role == "Admin")
             {
-                ICOrders.Visibility = Visibility.Collapsed;
+                ScrollV.Visibility = Visibility.Collapsed;
                 LabelCountOrders.Visibility = Visibility.Collapsed;
+                LabelOrders.Visibility = Visibility.Collapsed;
             }
         }
 
         void ChangePersonalData(object sender, RoutedEventArgs e)
         {
-            Button? bt = sender as Button;
+            bt = sender as Button;
             foreach (Button button in buttonList)
             {
                 if (button.Name == bt.Name)
@@ -55,12 +58,12 @@ namespace Gosuslugi
                     IterateTextBoxes(this, button.Tag);
                     tb.IsEnabled = true;
                     continue;
-
                 }   
                 button.IsEnabled = false;
             }
 
             bt.Content = "Сохранить";
+            RejectBt.Visibility = Visibility.Visible;
 
             bt.Click -= ChangePersonalData;
             bt.Click += SavePersonalData;
@@ -68,9 +71,29 @@ namespace Gosuslugi
 
         void SavePersonalData(object sender, RoutedEventArgs e)
         {
-            Button? bt = sender as Button;
-            bt.Content = "Изменить";
+            if ((sender as Button).Name != RejectBt.Name)
+            {
+                //сохранение в бд
+                using (var context = new ApplicationContext())
+                {
+                    var user = context.Users.FirstOrDefault(u => u.Id == Login.currentUser.Id);
 
+                    if (user != null)
+                    {
+                        Login.currentUser = user;
+                        user.Login = LoginTb.Text;
+                        user.Name = NameTb.Text;
+                        user.PhoneNumber = PhoneTb.Text;
+                        user.Email = MailTb.Text;
+
+                        context.SaveChanges();
+                    }
+                }
+            }
+            else 
+                Window_Loaded(sender, e);
+
+            bt.Content = "Изменить";
             foreach (Button button in buttonList)
             {
                 if (button.IsEnabled == false)
@@ -81,28 +104,11 @@ namespace Gosuslugi
             }
             bt.Click -= SavePersonalData;
             bt.Click += ChangePersonalData;
-
-            //сохранение в бд
-            using (var context = new ApplicationContext())
-            {
-                var user = context.Users.FirstOrDefault(u => u.Id == Login.currentUser.Id);
-
-                if (user != null)
-                {
-                    Login.currentUser = user;
-                    user.Login = LoginTb.Text;
-                    user.Name = NameTb.Text;
-                    user.PhoneNumber = PhoneTb.Text;
-                    user.Email = MailTb.Text;
-
-                    context.SaveChanges();
-                }
-            }
+            RejectBt.Visibility = Visibility.Collapsed;
         }
 
         public void IterateTextBoxes(DependencyObject parent, object tag)
         {
-            
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
                 var child = VisualTreeHelper.GetChild(parent, i);
@@ -142,11 +148,8 @@ namespace Gosuslugi
                         Contacts = order.Contacts,
                         Comments = order.Comments
                     };
-
-
                     orderCards.Add(orderCard);
                 };
-
                 LabelCountOrders.Content = "Колличество активных заказов: " + all.Count.ToString();
                 ICOrders.ItemsSource = orderCards;
             }
@@ -164,18 +167,18 @@ namespace Gosuslugi
                     order.AcceptedUserId = 0;
                     context.SaveChanges();
                     ShowOrders();
-                    //DialogResult = true;
                 }
             }
         }
 
         private void ClosePersonalAreaBt_Click(object sender, RoutedEventArgs e) 
         {
-            MessageBoxResult res = MessageBox.Show("Вы действительно хотите закрыть окно?", "Подтверждение", MessageBoxButton.YesNo);
-            if (res == MessageBoxResult.Yes)
-            {
-                AfterClosingAnimation.Animate(this, new OrderWindow());
-            }
+            AfterClosingAnimation.Animate(this, new OrderWindow());
+            //MessageBoxResult res = MessageBox.Show("Вы действительно хотите закрыть окно?", "Подтверждение", MessageBoxButton.YesNo);
+            //if (res == MessageBoxResult.Yes)
+            //{
+
+            //}
         }
 
         private void CollapseBt_Click(object sender, RoutedEventArgs e)
@@ -186,16 +189,10 @@ namespace Gosuslugi
         private void MaxiMinimizeBt_Click(object sender, RoutedEventArgs e)
         {
             if (this.WindowState == WindowState.Maximized)
-            {
                 this.WindowState = WindowState.Normal;
-            }
             else
-            {
                 this.WindowState = WindowState.Maximized;
-            }
         }
-
-        
 
         private void MainWindow_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -213,7 +210,6 @@ namespace Gosuslugi
 
                     double wind = newX + this.Width;
 
-                    //проверки, чтобы окно не выходило за рамки экрана
                     if (wind > 1920)
                         newX = 1920 - this.Width;
 

@@ -17,11 +17,11 @@
             <ImageBrush ImageSource="Resources/bg.jpg" Stretch="Fill" />
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="38"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="GridHeader" Grid.Row="0" Background="Transparent" Height="29" Opacity="1">
+        <Grid x:Name="GridHeader" Grid.Row="0" Background="Transparent" Height="30">
             <Label Content="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=Title}" FontSize="14" Foreground="White"/>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Background="Transparent" Height="26">
                 <Button x:Name="CollapseBt" Width="26" Height="26" Content="⎯⎯"  Padding="0,0,2.9,3" Style="{StaticResource ButtonStyle}" Click="CollapseBt_Click"/>
@@ -32,7 +32,7 @@
                 <Separator Width="3" Background="Transparent"/>
             </StackPanel>
         </Grid>
-        <Separator Grid.Row="0" VerticalAlignment="Bottom" Background="Black" />
+        <Separator Grid.Row="0" Background="Black" VerticalAlignment="Bottom"/>
 
         <Grid Margin="20" Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -45,7 +45,7 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="LoginBox" Text="124124" Grid.Row="0" Tag="Логин" GotFocus="RemoveText" LostFocus="AddText" Style="{StaticResource RegAndLoginWindowTbStyle}" TabIndex="0"/>
+            <TextBox x:Name="LoginBox" Grid.Row="0" Tag="Логин" GotFocus="RemoveText" LostFocus="AddText" Style="{StaticResource RegAndLoginWindowTbStyle}" TabIndex="0"/>
             <PasswordBox x:Name="PwdBox" Grid.Row="1" Width="auto" MaxWidth="350" Height="20" ToolTip="Пароль" Background="Lavender"  BorderThickness="0" TabIndex="1"/>
             <Button x:Name="LoginBt" Content="Войти" FontSize="16" Width="auto" MaxWidth="350" Height="25" Grid.Row="2" Click="LoginBt_Click" TabIndex="2" Style="{StaticResource ButtonStyle}"/>
             <Button Grid.Row="3"  Width="auto" MaxWidth="350" Height="25" Content="Регистрация" x:Name="BtToReg" Click="BtToReg_Click" FontSize="16" TabIndex="3" Style="{StaticResource ButtonStyle}"/>

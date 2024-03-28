@@ -1,19 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Security.Cryptography;
+using System.Reflection;
+using System.Windows.Controls;
 
 namespace Gosuslugi
 {
@@ -22,6 +13,7 @@ namespace Gosuslugi
     /// </summary>
     public partial class Registration : Window
     {
+        bool FieldsIsNull = false;
         public Registration()
         {
             InitializeComponent();
@@ -36,10 +28,11 @@ namespace Gosuslugi
         {
             var u = new UserModel
             {
-                Email = TbEmail.Text,
-                PhoneNumber = TbPhone.Text,
-                Login = TbLogin.Text,
-                HashedPwd = HashPwd(TbPass.Password),
+                Email = (TbEmail.Text != TbEmail.Tag) ? TbEmail.Text : null,
+                PhoneNumber = (TbPhone.Text != TbPhone.Tag) ? TbPhone.Text : null,
+                Login = (TbLogin.Text != TbLogin.Tag) ? TbLogin.Text : null,
+                HashedPwd = (TbPass.Password != string.Empty) ? HashPwd(TbPass.Password) : null,
+                Name = "",
                 Role = "User"
             };
 
@@ -55,9 +48,32 @@ namespace Gosuslugi
                     MessageBox.Show("Пользователь с таким логином уже существует!");
                     return;
                 }
-                MessageBox.Show("Успешная регистрация! Для входа нажмите кнопку 'Вход'");
-                context.Users.Add(u);
-                context.SaveChanges();
+
+
+                Type myType = typeof(UserModel);
+                FieldInfo[] fields = myType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+
+                foreach (FieldInfo field in fields)
+                {
+                    object value = field.GetValue(u);
+                    if (value == null) 
+                    {
+                        FieldsIsNull = true;
+                    }
+                }
+                
+
+                if (!FieldsIsNull)
+                {
+                    MessageBox.Show("Успешная регистрация! Для входа нажмите кнопку 'Вход'");
+                    context.Users.Add(u);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    MessageBox.Show("Заполните все поля!");
+                    FieldsIsNull = false;
+                }
             }
         }
 
@@ -81,9 +97,7 @@ namespace Gosuslugi
 
         private void BtToLogin_Click(object sender, RoutedEventArgs e)
         {
-            var l = new Login();
-            l.Show();
-            this.Close();
+            AfterClosingAnimation.Animate(this, new Login());
         }
 
         public void IterateTextBoxes(DependencyObject parent)
@@ -98,9 +112,7 @@ namespace Gosuslugi
                     {
                         textBox.Text = textBox.Tag.ToString();
                     }
-
                 }
-
                 IterateTextBoxes(child);
             }
         }

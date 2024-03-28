@@ -21,16 +21,16 @@ namespace Gosuslugi
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             ShowOrders();
-            
         }
 
         private void CreateOrderMenu_Click(object sender, RoutedEventArgs e)
         {
-            bool? result = new CreateOrderWindow().ShowDialog();
-            if (result == true)
-            {
-                ShowOrders();
-            }
+            AfterClosingAnimation.Animate(this, new CreateOrderWindow());
+            //bool? result = new CreateOrderWindow().ShowDialog();
+            //if (result == true)
+            //{
+            //    ShowOrders();
+            //}
         }
 
         void ShowOrders()
@@ -42,7 +42,10 @@ namespace Gosuslugi
                 List<OrderModel> orders = new List<OrderModel>();
 
                 if (Login.currentUser.Role != "Admin")
+                {
                     orders = context.Orders.Where(o => o.AcceptedUserId == 0).ToList();
+                    CreateOrderMenu.Visibility = Visibility.Collapsed;
+                }
                 else
                     orders = context.Orders.ToList();
 
@@ -195,6 +198,13 @@ namespace Gosuslugi
                     double newX = screenPosition.X - (ActualWidth / 2);
                     double newY = screenPosition.Y - (e.GetPosition(this).Y);
 
+                    double wind = newX + this.Width;
+
+                    if (wind > 1920)
+                        newX = 1920 - this.Width;
+
+                    if (newX < 0)
+                        newX = 0;
 
                     this.Left = newX;
                     this.Top = newY;

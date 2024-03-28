@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gosuslugi
 {
@@ -14,7 +9,7 @@ namespace Gosuslugi
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;user=root;password=rootpwd;database=GosuslugiDb;",
+            optionsBuilder.UseMySql("server=localhost;user=grumm;password=password;database=gosuslugidb;",
                 new MySqlServerVersion(new Version(8, 3, 0)));
         }
     }

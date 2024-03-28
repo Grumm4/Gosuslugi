@@ -6,7 +6,8 @@
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         xmlns:local="clr-namespace:Gosuslugi"
         mc:Ignorable="d"
-        Title="Заказы" Height="700" Width="1440"  WindowStartupLocation="CenterScreen" x:Name="MainWindow" WindowStyle="None" MouseLeftButtonDown="MainWindow_MouseLeftButtonDown" Loaded="MainWindow_Loaded">
+        Title="Заказы" Height="700" Width="1440"  WindowStartupLocation="CenterScreen" x:Name="MainWindow" WindowStyle="None" 
+        MouseLeftButtonDown="MainWindow_MouseLeftButtonDown" Loaded="MainWindow_Loaded">
     <shell:WindowChrome.WindowChrome>
         <shell:WindowChrome CaptionHeight="0" ResizeBorderThickness="4"/>
     </shell:WindowChrome.WindowChrome>
@@ -42,13 +43,13 @@
         <Separator Grid.Row="0" VerticalAlignment="Bottom" Background="Black" />
         <Label x:Name="LabelCountOrders" Grid.Row="2" HorizontalAlignment="Left" Width="200" Height="auto" Foreground="White"/>
 
-        <ScrollViewer Grid.Row="3">
-            <ItemsControl x:Name="ICOrders" ItemsSource="{Binding orderModels}" >
+        <ScrollViewer Grid.Row="3" Grid.Column="0" VerticalScrollBarVisibility="Auto" >
+            <ItemsControl x:Name="ICOrders" ItemsSource="{Binding orderModels}" Width="auto">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel x:Name="StackPan" Orientation="Horizontal" Margin="5">
-                            <local:OrderCard BorderThickness="1" MouseDoubleClick="OrderCard_MouseDoubleClick" Margin="3" />
-                            <Button x:Name="bt" Content="Удалить" Click="DeleteOrderBt_Click" CommandParameter="{Binding Id}" Loaded="DeleteBt_Loaded" Margin="3" Style="{StaticResource ButtonStyle}"/>
+                        <StackPanel x:Name="StackPan" Orientation="Horizontal" Margin="5" Width="auto">
+                            <local:OrderCard BorderThickness="1" MouseDoubleClick="OrderCard_MouseDoubleClick" Margin="3"/>
+                            <Button x:Name="bt" Content="Удалить" Width="75" Click="DeleteOrderBt_Click" CommandParameter="{Binding Id}" Loaded="DeleteBt_Loaded" Margin="3" Style="{StaticResource ButtonStyle}"/>
                             <Button Content="Принять" Width="75" FontSize="14" Click="AcceptOrderBt_Click" CommandParameter="{Binding Id}" Loaded="AcceptBt_Loaded" Margin="3" Style="{StaticResource ButtonStyle}"/>
                         </StackPanel>
                     </DataTemplate>

@@ -19,6 +19,7 @@ namespace Gosuslugi
         public Login()
         {
             InitializeComponent();
+            AfterClosingAnimation.Animate(null, this);
         }
         public void LoginLoaded(object sender, RoutedEventArgs e)
         {
@@ -30,6 +31,7 @@ namespace Gosuslugi
             using (var context = new ApplicationContext())
             {
                 var user = context.Users.FirstOrDefault(u => u.Login == LoginBox.Text && u.HashedPwd == Registration.HashPwd(PwdBox.Password));
+
                 if (user != null)
                 {
                     currentUser = new UserModel

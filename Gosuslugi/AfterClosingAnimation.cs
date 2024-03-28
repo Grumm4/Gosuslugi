@@ -19,8 +19,8 @@ namespace Gosuslugi
                 // Создаем анимацию исчезновения для первого окна
                 DoubleAnimation closeAnimation = new DoubleAnimation();
                 closeAnimation.From = 1.0;
-                closeAnimation.To = 0.0;
-                closeAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(500));
+                closeAnimation.To = 0.5;
+                closeAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(200));
                 closeAnimation.Completed += (s, e) => windowToClose.Close();
 
                 // Применяем анимацию к первому окну
@@ -31,11 +31,13 @@ namespace Gosuslugi
             {
                 // Создаем анимацию появления для второго окна
                 DoubleAnimation openAnimation = new DoubleAnimation();
-                openAnimation.From = 0.0;
+                windowToOpen.Opacity = 0.5;
+                windowToOpen.Show();
+                openAnimation.From = 0.5;
                 openAnimation.To = 1.0;
-                openAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(500));
+                openAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(200));
 
-                openAnimation.Completed += (s, e) => windowToOpen.Show();
+                openAnimation.Completed += (s, e) => windowToOpen.Opacity = 1;
                 // Применяем анимацию ко второму окну
                 windowToOpen.BeginAnimation(Window.OpacityProperty, openAnimation);
                 // Показываем второе окно
